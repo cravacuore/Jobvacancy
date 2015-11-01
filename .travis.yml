@@ -1,0 +1,13 @@
+language: ruby
+sudo: required
+rvm:
+  - 2.2.0
+script: "./build_all.sh"
+
+before_script:
+- sh -e /etc/init.d/xvfb start
+script: PADRINO_ENV=test padrino rake
+bundler_args: --without development
+before_install: 
+  - sudo apt-get update -qq 
+  - sudo apt-get install -qq postgresql-server-dev-9.3 
