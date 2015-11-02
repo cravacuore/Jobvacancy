@@ -29,12 +29,15 @@ Once you have clone this repository, follow these steps to start working:
 
 * Step into the project.
 * Run **_rvm current_**
-* Run **_rvm gemset use jobvacancy_**, to create a gemset for the project that do not interfere with the local gems.
+* Run **_rvm gemset create jobvacancy_**, to create a gemset for the project that do not interfere with the local gems.
+* Run **_rvm gemset use jobvacancy_**, to use the gemset before created.
 * Run **_bundle install --without staging production_**, to install all application dependencies
 * If you have problems with postgres, and you are working on Linux then run **sudo apt-get install postgresql-9.3 postgresql-server-dev-9.3 libpq-dev** to install postgresql, the dev libraries and the postgres server dev headers.
 * Run **_bundle exec rake_**, to run all tests and ensure everything is properly setup
 * Run **_PADRINO_ENV=development bundle exec padrino rake db:migrate_**, to setup the development database
 * Run **_bundle exec padrino start_**, to start the application
+
+___
 
 Some conventions to work on it:
 
