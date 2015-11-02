@@ -4,8 +4,6 @@
 Job Vacancy Application
 =======================
 
----
-
 ### Members:
 
 Developer team:
@@ -23,7 +21,6 @@ https://trello.com/b/tFVioHoT/jobvacancy
 
 ___
 
----
 ###### To contribute with this repository, you might want to follow this configurations.
 
 
