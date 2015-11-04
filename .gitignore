@@ -1,16 +1,35 @@
-## Ignoring files created by editors:
-*~
+.DS_Store
+log/
+log/**/*
+tmp/**/*
+bin/*
+vendor/gems/*
+!vendor/gems/cache/
+.sass-cache/*
+db/*.db
+*.gem
+*.rbc
+.bundle
+.config
 .save
+coverage
+InstalledFiles
+lib/bundler/man
+pkg
+rdoc
+spec/reports
+test/tmp
+test/version_tmp
+tmp
+reports
+:memory
+*.sublime-*
 
-# Ignore bundler config.
-/.bundle
+# YARD artifacts
+.yardoc
+_yardoc
+doc/
+.env
 
-# Ignore the default SQLite database.
-/db/*.sqlite3
-/db/*.sqlite3-journal
-/reports
-
-# Ignore all logfiles and tempfiles.
-/log/*.log
-/tmp
-
+## Files created by editors:
+*~
