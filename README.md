@@ -1,4 +1,4 @@
-[![Build Status](https://snap-ci.com/nicopaez/job-vacancy/branch/develop/build_image)](https://snap-ci.com/nicopaez/job-vacancy/branch/develop) [![Build Status](https://travis-ci.org/GianFF/Jobvacancy.svg?branch=master)](https://travis-ci.org/GianFF/Jobvacancy)
+[![Build Status](https://snap-ci.com/nicopaez/job-vacancy/branch/develop/build_image)](https://snap-ci.com/nicopaez/job-vacancy/branch/develop) [![Build Status](https://travis-ci.org/alejandrosobko/Jobvacancy.svg?branch=master)](https://travis-ci.org/alejandrosobko/Jobvacancy)
 ---
 
 Job Vacancy Application
