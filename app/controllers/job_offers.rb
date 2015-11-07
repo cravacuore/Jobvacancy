@@ -22,14 +22,14 @@ JobVacancy::App.controllers :job_offers do
 
   get :edit, :with =>:offer_id  do
     @job_offer = JobOffer.get(params[:offer_id])
-    # ToDo: validate the current user is the owner of the offer
+    # TODO: validate the current user is the owner of the offer
     render 'job_offers/edit'
   end
 
   get :apply, :with =>:offer_id  do
     @job_offer = JobOffer.get(params[:offer_id])
     @job_application = JobApplication.new
-    # ToDo: validate the current user is the owner of the offer
+    # TODO: validate the current user is the owner of the offer
     render 'job_offers/apply'
   end
 
