@@ -22,14 +22,14 @@ JobVacancy::App.controllers :job_offers do
 
   get :edit, :with =>:offer_id  do
     @job_offer = JobOffer.get(params[:offer_id])
-    # ToDo: validate the current user is the owner of the offer
+    # TODO: validate the current user is the owner of the offer
     render 'job_offers/edit'
   end
 
   get :apply, :with =>:offer_id  do
     @job_offer = JobOffer.get(params[:offer_id])
     @job_application = JobApplication.new
-    # ToDo: validate the current user is the owner of the offer
+    # TODO: validate the current user is the owner of the offer
     render 'job_offers/apply'
   end
 
@@ -38,12 +38,16 @@ JobVacancy::App.controllers :job_offers do
     render 'job_offers/list'
   end
 
-
   post :apply, :with => :offer_id do
-    @job_offer = JobOffer.get(params[:offer_id])    
+    @job_offer = JobOffer.get(params[:offer_id])
+
     applicant_email = params[:job_application][:applicant_email]
-    @job_application = JobApplication.create_for(applicant_email, @job_offer)
+    applicant_name = params[:job_application][:applicant_name]
+    applicant_cv_link = params[:job_application][:applicant_cv_link]
+
+    @job_application = JobApplication.create_for(applicant_email, applicant_name, applicant_cv_link, @job_offer)
     @job_application.process
+    # TODO: Validate not null :applicant_email.
     flash[:success] = 'Contact information sent.'
     redirect '/job_offers'
   end
