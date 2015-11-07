@@ -26,3 +26,12 @@ Feature: Job Offers CRUD
     Given I delete it
     Then I should see "Offer deleted"
     And I should not see "Programmer vacancy!!!" in My Offers
+
+  @wip
+  Scenario: Offer benefits
+    Given I access the new offer page
+    When I fill the title with "Java dev"
+    And I fill the benefits with "Gym included"
+    And confirm the new offer
+    Then I should see "Offer created"
+    And I should see "Java dev" in My Offers
