@@ -27,7 +27,6 @@ Feature: Job Offers CRUD
     Then I should see "Offer deleted"
     And I should not see "Programmer vacancy!!!" in My Offers
 
-  @wip
   Scenario: Offer benefits
     Given I access the new offer page
     When I fill the title with "Java dev"
