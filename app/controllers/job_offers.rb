@@ -38,12 +38,15 @@ JobVacancy::App.controllers :job_offers do
     render 'job_offers/list'
   end
 
-
   post :apply, :with => :offer_id do
-    @job_offer = JobOffer.get(params[:offer_id])    
+    @job_offer = JobOffer.get(params[:offer_id])
+
     applicant_email = params[:job_application][:applicant_email]
-    @job_application = JobApplication.create_for(applicant_email, @job_offer)
-    @job_application.process
+    applicant_name = params[:job_application][:applicant_name]
+    applicant_cv_link = params[:job_application][:applicant_cv_link]
+
+    @job_application = JobApplication.create_for(applicant_email, applicant_name, applicant_cv_link, @job_offer)
+    # TODO: Validate not null :applicant_email, :applicant_name, :applicant_cv_link 
     flash[:success] = 'Contact information sent.'
     redirect '/job_offers'
   end

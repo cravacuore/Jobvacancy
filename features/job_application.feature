@@ -9,7 +9,7 @@ Feature: Job Application
   Scenario: Apply to job offer
     Given I access the offers list page
     When I apply
-    Then I should put "Gian Franco Fioriello" , "gf.fioriello@gmail.com" and "http://linck-to-my-cv.html"
+    Then I should put "gf.fioriello@gmail.com", "Gian Franco Fioriello" and "http://linck-to-my-cv.html"
   
   @wip
   Scenario: Apply to job offer

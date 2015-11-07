@@ -11,10 +11,18 @@ Given(/^I access the offers list page$/) do
   visit '/job_offers'
 end
 
+Given(/^I access the apply page$/) do
+  pending
+end
+
 When(/^I apply$/) do
   click_link 'Apply'
-  fill_in('job_application[applicant_email]', :with => 'applicant@test.com')
-  click_button('Apply')
+end
+
+Then(/^I should put "(.*?)", "(.*?)" and "(.*?)"$/) do |arg1, arg2, arg3|
+  fill_in('job_application[applicant_email]', :with => arg1)
+  fill_in('job_application[applicant_name]', :with => arg2)
+  fill_in('job_application[applicant_cv_link]', :with => arg3)
 end
 
 Then(/^I should receive a mail with offerer info$/) do
