@@ -1,6 +1,6 @@
 class JobApplication
 
-	attr_accessor :applicant_email
+	attr_accessor :applicant_email, :applicant_name, :applicant_cv_link
 	attr_accessor :job_offer
 
 	def self.create_for(email, offer)

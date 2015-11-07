@@ -38,7 +38,7 @@ if ['development', 'test', 'travis'].include?(PADRINO_ENV)
   Cucumber::Rake::Task.new(:cucumber) do |task|
     Rake::Task['db:migrate'].invoke
     Rake::Task['db:seed'].invoke
-    task.cucumber_opts = ["features"]
+    task.cucumber_opts = ['--tags ~@wip']
   end
 
   Cucumber::Rake::Task.new(:cucumber_report) do |task|
@@ -48,7 +48,7 @@ if ['development', 'test', 'travis'].include?(PADRINO_ENV)
 
   require 'rspec/core/rake_task'
   RSpec::Core::RakeTask.new(:spec) do |t|
-    t.pattern = "./spec/**/*_spec.rb"
+    t.pattern = "./spec/**/*_spec.rb/**/./models/**/*.rb"
   end
 
   require 'rspec/core/rake_task'
