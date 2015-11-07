@@ -46,7 +46,8 @@ JobVacancy::App.controllers :job_offers do
     applicant_cv_link = params[:job_application][:applicant_cv_link]
 
     @job_application = JobApplication.create_for(applicant_email, applicant_name, applicant_cv_link, @job_offer)
-    # TODO: Validate not null :applicant_email, :applicant_name, :applicant_cv_link 
+    @job_application.process
+    # TODO: Validate not null :applicant_email.
     flash[:success] = 'Contact information sent.'
     redirect '/job_offers'
   end
