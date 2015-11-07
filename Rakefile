@@ -48,7 +48,7 @@ if ['development', 'test', 'travis'].include?(PADRINO_ENV)
 
   require 'rspec/core/rake_task'
   RSpec::Core::RakeTask.new(:spec) do |t|
-    t.pattern = "./spec/**/*_spec.rb/**/./models/**/*.rb"
+    t.pattern = "./spec/**/*_spec.rb"
   end
 
   require 'rspec/core/rake_task'

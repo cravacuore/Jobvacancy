@@ -16,16 +16,14 @@ describe JobApplication do
 
   describe 'create_for' do
 
-    it 'should set applicant_email' do
+    it 'should set applicant_email, name, and cv_link' do
       email = 'applicant@test.com'
-      ja = JobApplication.create_for(email, JobOffer.new)
+      name = 'Mr. Foo'
+      cv_link = 'http://link-to-my-cv.html'
+      ja = JobApplication.create_for(email, name, cv_link, JobOffer.new)
       ja.applicant_email.should eq email
-    end
-
-    it 'should set applicant_email' do
-      email = 'applicant@test.com'
-      ja = JobApplication.create_for(email, JobOffer.new)
-      ja.applicant_email.should eq email
+      ja.applicant_name.should eq name
+      ja.applicant_cv_link.should eq cv_link
     end
 
     it 'should set job_offer' do
