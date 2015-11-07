@@ -33,4 +33,8 @@ Feature: Job Offers CRUD
     And I fill the benefits with "Gym included"
     And confirm the new offer
     Then I should see "Offer created"
-    And I should see "Java dev" in My Offers
+    And I should see "Gym included" in My Offers
+
+  Scenario: Offer benefits in Current Job Offers
+    Given I access the Current Job Offers page
+    Then I should see the field "Benefits"
