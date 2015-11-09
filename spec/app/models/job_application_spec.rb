@@ -2,6 +2,10 @@ require 'spec_helper'
 
 describe JobApplication do
 
+  let(:email){'applicant@test.com'}
+  let(:name){'Mr. Foo'}
+  let(:cv_link){'http://link-to-my-cv.html'}
+
   describe 'model' do
 
     subject { @job_offer = JobApplication.new }
@@ -16,20 +20,17 @@ describe JobApplication do
 
   describe 'create_for' do
 
-    it 'should set applicant_email, name, and cv_link' do
-      email = 'applicant@test.com'
-      name = 'Mr. Foo'
-      cv_link = 'http://link-to-my-cv.html'
+    it 'should set job_offer' do
       ja = JobApplication.create_for(email, name, cv_link, JobOffer.new)
       ja.applicant_email.should eq email
       ja.applicant_name.should eq name
       ja.applicant_cv_link.should eq cv_link
     end
 
-    it 'should set job_offer' do
+    it 'should raise "All fields are mandatory"' do
       offer = JobOffer.new
-      ja = JobApplication.create_for('applicant@test.com', offer)
-      ja.job_offer.should eq offer
+      expect{ JobApplication.create_for(email, '', '', offer) }.
+          to raise_error('All fields are mandatory')
     end
 
   end
@@ -40,7 +41,7 @@ describe JobApplication do
     let(:job_application) { JobApplication.new }
 
     it 'should deliver contact info notification' do
-      ja = JobApplication.create_for('applicant@test.com', JobOffer.new)
+      ja = JobApplication.create_for(email, name, cv_link ,JobOffer.new)
       JobVacancy::App.should_receive(:deliver).with(:notification, :contact_info_email, ja)
       ja.process
     end

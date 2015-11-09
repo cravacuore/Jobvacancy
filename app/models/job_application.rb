@@ -4,7 +4,9 @@ class JobApplication
   attr_accessor :job_offer
 
   def self.create_for(*args, offer)
+    raise 'All fields are mandatory' if args[0].empty? || args[1].empty? || args[2].empty?
     app = JobApplication.new
+
     app.applicant_email = args[0]
     app.applicant_name = args[1]
     app.applicant_cv_link = args[2]
