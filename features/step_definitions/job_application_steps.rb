@@ -31,6 +31,10 @@ Then(/^I should put "(.*?)", "(.*?)" and "(.*?)"$/) do |arg1, arg2, arg3|
   complete_fields(arg1, arg2, arg3)  
 end
 
+Then(/^I should see an error mesagge "(.*?)"$/) do |arg1|
+  page.should have_content(arg1)
+end
+
 Then(/^I should receive a mail with offerer info$/) do
   mail_store = "#{Padrino.root}/tmp/emails"
   file = File.open("#{mail_store}/applicant@test.com", "r")
@@ -42,7 +46,20 @@ Then(/^I should receive a mail with offerer info$/) do
   content.include?(@job_offer.owner.name).should be true
 end
 
+Then(/^I should receive a mail with my info$/) do
+  mail_store = "#{Padrino.root}/tmp/emails"
+  file = File.open("#{mail_store}/applicant@test.com", "r")
+  content = file.read
+  content.include?(@applicant_email).should be true
+  content.include?(@applicant_name).should be true
+  content.include?(@applicant_cv_link).should be true
+end
+
+
 def complete_fields(arg1, arg2, arg3)
+  @applicant_email = arg1
+  @applicant_name = arg2
+  @applicant_cv_link = arg3
   fill_in('job_application[applicant_email]', :with => arg1)
   fill_in('job_application[applicant_name]', :with => arg2)
   fill_in('job_application[applicant_cv_link]', :with => arg3)
