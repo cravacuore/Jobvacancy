@@ -29,6 +29,12 @@ Feature: Job Application
     When apply
     Then I should see an error mesagge "All fields are mandatory"
 
+  Scenario: Bad complete job offer mail field
+    Given I access to the offer page
+    And put "bad email adress", "Pepe" and "http://pepe-cv.html"
+    When apply
+    Then I should see an error mesagge "Wrong email adress"
+
   Scenario: Apply to job offer
     Given I access to the offer page
     And put "gf.fioriello@gmail.com", "Gian Franco Fioriello" and "http://linck-to-my-cv.html"
