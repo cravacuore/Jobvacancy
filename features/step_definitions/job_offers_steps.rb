@@ -56,3 +56,7 @@ end
 Given(/^I save the modification$/) do
   click_button('Save')
 end
+
+When(/^I fill the benefits with "(.*?)"$/) do |arg1|
+  fill_in('job_offer[benefits]', :with => arg1)
+end

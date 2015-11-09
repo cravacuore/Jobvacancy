@@ -1,29 +1,30 @@
 class JobOffer
-	include DataMapper::Resource
+  include DataMapper::Resource
 
-	# property <name>, <type>
-	property :id, Serial
-	property :title, String
-	property :location, String
-	property :description, String
+  # property <name>, <type>
+  property :id, Serial
+  property :title, String
+  property :location, String
+  property :description, String
+  property :benefits, String
   property :created_on, Date
   property :updated_on, Date
   property :is_active, Boolean, :default => true
-	belongs_to :user
+  belongs_to :user
 
-	validates_presence_of :title
+  validates_presence_of :title
 
-	def owner
-		user
-	end
+  def owner
+    user
+  end
 
-	def owner=(a_user)
-		self.user = a_user
-	end
+  def owner=(a_user)
+    self.user = a_user
+  end
 
-	def self.all_active
-		JobOffer.all(:is_active => true)
-	end
+  def self.all_active
+    JobOffer.all(:is_active => true)
+  end
 
 	def self.all_contains(query)
 		return JobOffer.all(:title.like => query) | JobOffer.all(:location.like => query) | JobOffer.all(:description.like => query)
@@ -33,23 +34,23 @@ class JobOffer
 		JobOffer.all(:user => user)
 	end
 
-	def self.deactivate_old_offers
-		active_offers = JobOffer.all(:is_active => true)
+  def self.deactivate_old_offers
+    active_offers = JobOffer.all(:is_active => true)
 
-		active_offers.each do | offer |
-			if (Date.today - offer.updated_on) >= 30
-				offer.deactivate
-				offer.save
-			end
-		end
-	end
+    active_offers.each do | offer |
+      if (Date.today - offer.updated_on) >= 30
+        offer.deactivate
+        offer.save
+      end
+    end
+  end
 
-	def activate
-		self.is_active = true
-	end
+  def activate
+    self.is_active = true
+  end
 
-	def deactivate
-		self.is_active = false
-	end
+  def deactivate
+    self.is_active = false
+  end
 
 end

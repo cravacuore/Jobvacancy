@@ -38,11 +38,8 @@ if ['development', 'test', 'travis'].include?(PADRINO_ENV)
   Cucumber::Rake::Task.new(:cucumber) do |task|
     Rake::Task['db:migrate'].invoke
     Rake::Task['db:seed'].invoke
-#    task.cucumber_opts = ["features"]
-#############################################################
-# Added for @wip next feature
+
     task.cucumber_opts = ['--tags ~@wip']
-#############################################################
   end
 
   Cucumber::Rake::Task.new(:cucumber_report) do |task|

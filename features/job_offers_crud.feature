@@ -9,9 +9,11 @@ Feature: Job Offers CRUD
   Scenario: Create new offer
     Given I access the new offer page
     When I fill the title with "Programmer vacancy"
-		And confirm the new offer    
+		And I fill the benefits with "Gym included"
+    And confirm the new offer
     Then I should see "Offer created"
     And I should see "Programmer vacancy" in My Offers
+    And I should see "Gym included" in My Offers
 
   Scenario: Update offer
     Given I have "Programmer vacancy" offer in My Offers
