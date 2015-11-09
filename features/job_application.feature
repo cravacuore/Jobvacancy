@@ -17,12 +17,11 @@ Feature: Job Application
     When apply
     Then I should see an error mesagge "All fields are mandatory"
 
-  @wip
   Scenario: Complete only two job offer fields
-    Given I access the offers list page
-    When I apply
-    And put "gf.fioriello@gmail.com", "Gian Franco Fioriello"
-    Then I should see "All fields are mandatory"
+    Given I access to the offer page
+    And put "pepe@pepe.com", "Pepe" and ""
+    When apply
+    Then I should see an error mesagge "All fields are mandatory"
 
   @wip
   Scenario: Bad complete job offer mail field
