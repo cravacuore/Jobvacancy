@@ -56,4 +56,34 @@ describe JobOffer do
 		end
 	end
 
+	describe 'search all fields' do
+
+		let(:offer) do
+			offer = JobOffer.new
+			offer.title = "Programmer Ruby"
+			offer.location = "Quilmes"
+			offer.description = "Good ambient job"
+			offer
+		end
+		
+	  it 'should search for Location, show the job offer with Location Quilmes' do
+	  	JobOffer.should_receive(:all_contains).and_return([offer])
+			offers = JobOffer.all_contains("Quilmes")
+			expect(offers.include? offer).to eq true
+	  end
+
+	  it 'should search for Location, show the job offer with Location Quilmes' do
+	  	JobOffer.should_receive(:all_contains).and_return([offer])
+			offers = JobOffer.all_contains("Ruby")
+			expect(offers.include? offer).to eq true
+	  end
+
+	  it 'should search for Location, show the job offer with Location Quilmes' do
+	  	JobOffer.should_receive(:all_contains).and_return([offer])
+			offers = JobOffer.all_contains("ambient")
+			expect(offers.include? offer).to eq true
+	  end
+
+	end
+
 end

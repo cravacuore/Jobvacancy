@@ -34,7 +34,7 @@ JobVacancy::App.controllers :job_offers do
   end
 
   post :search do
-    @offers = JobOffer.all(:title.like => "%#{params[:q]}%")
+    @offers = JobOffer.all_contains("%#{params[:q]}%")
     render 'job_offers/list'
   end
 

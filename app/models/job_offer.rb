@@ -25,6 +25,10 @@ class JobOffer
 		JobOffer.all(:is_active => true)
 	end
 
+	def self.all_contains(query)
+		return JobOffer.all(:title.like => query) | JobOffer.all(:location.like => query) | JobOffer.all(:description.like => query)
+	end
+
 	def self.find_by_owner(user)
 		JobOffer.all(:user => user)
 	end
