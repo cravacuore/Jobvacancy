@@ -60,11 +60,3 @@ end
 When(/^I fill the benefits with "(.*?)"$/) do |arg1|
   fill_in('job_offer[benefits]', :with => arg1)
 end
-
-Given(/^I access the Current Job Offers page$/) do
-  visit '/job_offers/latest'
-end
-
-Then(/^I should see the field "(.*?)"$/) do |arg1|
-    page.should have_content(arg1)
-end

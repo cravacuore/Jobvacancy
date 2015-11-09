@@ -28,7 +28,3 @@ Feature: Job Offers CRUD
     Given I delete it
     Then I should see "Offer deleted"
     And I should not see "Programmer vacancy!!!" in My Offers
-
-  Scenario: Offer benefits in Current Job Offers
-    Given I access the Current Job Offers page
-    Then I should see the field "Benefits"
