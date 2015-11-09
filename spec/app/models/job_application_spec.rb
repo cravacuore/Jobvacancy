@@ -33,6 +33,17 @@ describe JobApplication do
           to raise_error('All fields are mandatory')
     end
 
+    it 'should raise "Wrong email adress"' do
+      offer = JobOffer.new
+      expect{ JobApplication.create_for('wrong email', name, cv_link, offer) }.
+          to raise_error('Wrong email adress')
+
+      expect{ JobApplication.create_for('wrong@email', name, cv_link, offer) }.
+          to raise_error('Wrong email adress')
+
+      #TODO: expect{ JobApplication.create_for('wrongemail.com', name, cv_link, offer) }.to raise_error('Wrong email adress')
+    end
+
   end
 
 
