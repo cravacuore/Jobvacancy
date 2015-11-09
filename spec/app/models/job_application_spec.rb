@@ -40,8 +40,6 @@ describe JobApplication do
 
       expect{ JobApplication.create_for('wrong@email', name, cv_link, offer) }.
           to raise_error('Wrong email adress')
-
-      #TODO: expect{ JobApplication.create_for('wrongemail.com', name, cv_link, offer) }.to raise_error('Wrong email adress')
     end
 
   end
