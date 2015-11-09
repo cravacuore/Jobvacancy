@@ -53,7 +53,14 @@ JobVacancy::App.controllers :job_offers do
       redirect_to session[:previous_url]      
     end
 
-    @job_application.process
+    begin 
+      @job_application.process
+    rescue
+      session[:previous_url] = request.fullpath
+      flash[:error] = e.message
+      redirect_to session[:previous_url]      
+    end
+
     flash[:success] = 'Contact information sent.'
     redirect '/job_offers'
   end
