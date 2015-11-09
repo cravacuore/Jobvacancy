@@ -11,12 +11,11 @@ Feature: Job Application
     When I apply
     Then I should put "gf.fioriello@gmail.com", "Gian Franco Fioriello" and "http://linck-to-my-cv.html"
 
-  @wip
   Scenario: Complete only one job offer field
-    Given I access the offers list page
-    When I apply
-    And put "gf.fioriello@gmail.com"
-    Then I should see "All fields are mandatory"
+    Given I access to the offer page
+    And put "pepe@pepe.com", "" and ""
+    When apply
+    Then I should see an error mesagge "All fields are mandatory"
 
   @wip
   Scenario: Complete only two job offer fields

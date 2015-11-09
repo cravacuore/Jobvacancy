@@ -31,6 +31,10 @@ Then(/^I should put "(.*?)", "(.*?)" and "(.*?)"$/) do |arg1, arg2, arg3|
   complete_fields(arg1, arg2, arg3)  
 end
 
+Then(/^I should see an error mesagge "(.*?)"$/) do |arg1|
+  page.should have_content(arg1)
+end
+
 Then(/^I should receive a mail with offerer info$/) do
   mail_store = "#{Padrino.root}/tmp/emails"
   file = File.open("#{mail_store}/applicant@test.com", "r")

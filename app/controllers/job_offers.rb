@@ -43,14 +43,21 @@ JobVacancy::App.controllers :job_offers do
 
     applicant_email = params[:job_application][:applicant_email]
     applicant_name = params[:job_application][:applicant_name]
-    applicant_cv_link = params[:job_application][:applicant_cv_link]
+    applicant_cv_link = params[:job_application][:applicant_cv_link]    
+    
+    begin    
+      @job_application = JobApplication.create_for(applicant_email, applicant_name, applicant_cv_link, @job_offer)
+    rescue RuntimeError => e  
+      session[:previous_url] = request.fullpath
+      flash[:error] = e.message
+      redirect_to session[:previous_url]      
+    end
 
-    @job_application = JobApplication.create_for(applicant_email, applicant_name, applicant_cv_link, @job_offer)
     @job_application.process
-    # TODO: Validate not null :applicant_email.
     flash[:success] = 'Contact information sent.'
     redirect '/job_offers'
   end
+
 
   post :create do
     @job_offer = JobOffer.new(params[:job_offer])
