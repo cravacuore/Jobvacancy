@@ -1,4 +1,6 @@
 require 'spec_helper'
+require_relative '../../../app/exceptions/wrong_email_adress_error'
+require_relative '../../../app/exceptions/empty_fields_error'
 
 describe JobApplication do
 
@@ -30,16 +32,16 @@ describe JobApplication do
     it 'should raise "All fields are mandatory"' do
       offer = JobOffer.new
       expect{ JobApplication.create_for(email, '', '', offer) }.
-          to raise_error('All fields are mandatory')
+          to raise_error(EmptyFieldsError)
     end
 
     it 'should raise "Wrong email adress"' do
       offer = JobOffer.new
       expect{ JobApplication.create_for('wrong email', name, cv_link, offer) }.
-          to raise_error('Wrong email adress')
+          to raise_error(WrongEmailAdressError)
 
       expect{ JobApplication.create_for('wrong@email', name, cv_link, offer) }.
-          to raise_error('Wrong email adress')
+          to raise_error(WrongEmailAdressError)
     end
 
   end

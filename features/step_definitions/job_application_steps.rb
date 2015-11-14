@@ -1,3 +1,6 @@
+require_relative '../../app/exceptions/wrong_email_adress_error'
+require_relative '../../app/exceptions/empty_fields_error'
+
 Given(/^only a "(.*?)" offer exists in the offers list$/) do | job_title |
   @job_offer = JobOffer.new
   @job_offer.owner = User.first
