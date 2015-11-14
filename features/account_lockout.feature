@@ -5,10 +5,10 @@ Feature: Blocked account
 	And after that my account will be blocked
 
 Background:
-	Given the login page 
-	And the account with email: "brianpericon@gmail.com" and password: "Pericon92" 
+	Given the account with name "Brian" with email: "brianpericon@gmail.com" and password: "Pericon92" 
 
 Scenario: Inserting password incorrectly three times 
+  Given the login page
 	When I insert the email "brianpericon@gmail.com"
 	When I insert the password "pericon"
 	And login
