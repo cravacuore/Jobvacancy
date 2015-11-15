@@ -13,17 +13,29 @@ class User
   validates_format_of   :email,    :with => :email_address
 
   def password= (password)
-    self.crypted_password = ::BCrypt::Password.create(password) unless password.nil?	
+    self.crypted_password = ::BCrypt::Password.create(password) unless password.nil?  
   end
 
   def self.authenticate(email, password)
+    # validar que la cuenta existe.
+    # validar que la contraseña es valida:
+      # validar que puede reintentar.
+    user = User.authenticate_account(email)
+    user.authenticate_password(password, user)  
+  end
+
+  def self.authenticate_account(email)
     user = User.find_by_email(email)
-    return nil if user.nil?
-    user.has_password?(password)? user : nil
+    raise NonExistingUserError if user.nil?
+    user
   end
 
   def has_password?(password)
     ::BCrypt::Password.new(crypted_password) == password
+  end
+
+  def authenticate_password(password, user)
+    has_password?(password)? user : nil
   end
 
 end
