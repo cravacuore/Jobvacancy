@@ -14,11 +14,10 @@ Feature: Create a strong account
     And click in create
     Then I should see "User created"
 
-  @wip
   Scenario: Create new account fail
     When I fill the name with "Alejandro"
     And I fill the email with "ale@hotmail.com"
     And I fill the password with "123"
     And I fill the password confirmation with "123"
     And click in create
-    Then I should see "Your password must have at least 6 characters including lowercase, uppercase and numbers."
+    Then I should see "Your password must have at least 6 characters including lowercase, uppercase and numbers"

@@ -34,4 +34,10 @@ class JobApplication
   def right_email(email)
     (email.include? "@") && (email.include? ".com") 
   end
+
+  def self.correctPasswd(password)
+    (password =~ /[A-Z]/) && (password =~ /[a-z]/) && (password.length >= 6) && (password =~ /\d/) && true
+  end
+
+
 end
