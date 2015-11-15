@@ -36,7 +36,7 @@ class JobApplication
   end
 
   def self.correctPasswd(password)
-    (password =~ /[A-Z]/) && (password =~ /[a-z]/) && (password.length >= 6) && (password =~ /\d/) && true
+    true && (password.length >= 6) && (/[a-z]/ === password) && (/[A-Z]/ === password) && (/\d+/ === password)
   end
 
 
