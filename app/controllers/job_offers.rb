@@ -48,22 +48,20 @@ JobVacancy::App.controllers :job_offers do
     begin    
       @job_application = JobApplication.create_for(email, name, cv_link, @job_offer)
 
-    rescue RuntimeError => e  
+    rescue EmptyFieldsError => e  
       # TODO: Extract to a method
       session[:previous_url] = request.fullpath
       flash[:error] = e.message
       redirect_to session[:previous_url]        
-    end
-      
-    begin 
-      @job_application.process
-
-    rescue RuntimeError => e  
+    
+    rescue WrongEmailAdressError => e  
 
       session[:previous_url] = request.fullpath
       flash[:error] = e.message
       redirect_to session[:previous_url]        
     end
+    
+    @job_application.process
 
     flash[:success] = 'Contact information sent.'
     redirect '/job_offers'
