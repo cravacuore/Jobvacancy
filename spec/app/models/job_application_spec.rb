@@ -89,6 +89,10 @@ describe JobApplication do
     it 'password empty fail' do
       expect(JobApplication.correctPasswd('')).to eq false
     end
+
+    it 'password with only spaces fails' do
+      expect(JobApplication.correctPasswd('      ')).to eq false
+    end
   end
 
 end
