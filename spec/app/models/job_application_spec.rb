@@ -53,46 +53,4 @@ describe JobApplication do
     end
   end
 
-  describe 'strong password' do
-    it 'password with one letter uppercase, lowercase, one number and length >= 6 its ok' do
-      expect(JobApplication.correctPasswd('Itsok1')).to eq true
-    end
-
-    it 'password with one letter uppercase, lowercase, one number and length < 6 fail' do
-      expect(JobApplication.correctPasswd('Dont1')).to eq false
-    end
-
-    it 'password with one letter uppercase, lowercase, zero number and length >= 6 fail' do
-      expect(JobApplication.correctPasswd('Itsbad')).to eq false
-    end
-
-    it 'password with one letter uppercase, without lowercase, one number and length >= 6 fail' do
-      expect(JobApplication.correctPasswd('1WRONG')).to eq false
-    end
-
-    it 'password without uppercase, with lowercase, one number and length >= 6 fail' do
-      expect(JobApplication.correctPasswd('isb3ad')).to eq false
-    end
-
-    it 'password without uppercase, lowercase, with numbers and length >= 6 fail' do
-      expect(JobApplication.correctPasswd('123456')).to eq false
-    end
-    
-    it 'password without uppercase, with lowercase, without numbers and length >= 6 fail' do
-      expect(JobApplication.correctPasswd('itsbad')).to eq false
-    end
-
-    it 'password with uppercase, without lowercase, without numbers and length >= 6 fail' do
-      expect(JobApplication.correctPasswd('ITSBAD')).to eq false
-    end
-
-    it 'password empty fail' do
-      expect(JobApplication.correctPasswd('')).to eq false
-    end
-
-    it 'password with only spaces fails' do
-      expect(JobApplication.correctPasswd('      ')).to eq false
-    end
-  end
-
 end

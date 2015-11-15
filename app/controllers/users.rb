@@ -1,5 +1,5 @@
 JobVacancy::App.controllers :users do
-  
+
   # get :index, :map => '/foo/bar' do
   #   session[:foo] = 'bar'
   #   render 'index'
@@ -29,7 +29,7 @@ JobVacancy::App.controllers :users do
     params[:user].reject!{|k,v| k == 'password_confirmation'}
     if (params[:user][:password] == password_confirmation)
       @user = User.new(params[:user])
-      if JobApplication.correctPasswd(params[:user][:password])
+      if Checker.correctPasswd(params[:user][:password])
         if @user.save
           flash[:success] = 'User created'
           redirect '/'
@@ -44,7 +44,7 @@ JobVacancy::App.controllers :users do
     else
       @user = User.new (params[:user])
       flash.now[:error] = 'Passwords do not match'
-      render 'users/new'          
+      render 'users/new'
     end
   end
 

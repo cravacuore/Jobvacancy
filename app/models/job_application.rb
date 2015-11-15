@@ -4,10 +4,10 @@ class JobApplication
   attr_accessor :job_offer
 
   def self.create_for(*args, offer)
-    app = JobApplication.new    
-    app.check_fields(args[0], args[1], args[2]) 
+    app = JobApplication.new
+    app.check_fields(args[0], args[1], args[2])
     app.check_email(args[0])
-    
+
     app.applicant_email = args[0]
     app.applicant_name = args[1]
     app.applicant_cv_link = args[2]
@@ -32,12 +32,7 @@ class JobApplication
   end
 
   def right_email(email)
-    (email.include? "@") && (email.include? ".com") 
+    (email.include? "@") && (email.include? ".com")
   end
-
-  def self.correctPasswd(password)
-    true && (password.length >= 6) && (/[a-z]/ === password) && (/[A-Z]/ === password) && (/\d+/ === password)
-  end
-
 
 end
