@@ -1,4 +1,5 @@
-require_relative '../exceptions/non_existing_user_error'
+require_relative '../../app/exceptions/non_existing_user_error'
+require_relative '../../app/exceptions/wrong_password_error'
 
 class User
   include DataMapper::Resource
@@ -19,17 +20,20 @@ class User
   end
 
   def self.authenticate(email, password)
-    # validar que la cuenta existe.
-    # validar que la contraseña es valida:
-      # validar que puede reintentar.
-    user = User.authenticate_account(email)
-    user.authenticate_password(password, user)  
+    #unless User.is_blocked?(email)
+      user = User.authenticate_account(email)
+      user.authenticate_password(password, user)  
+    #end
   end
 
   def self.authenticate_account(email)
     user = User.find_by_email(email)
     raise NonExistingUserError.new if user.nil?
     user
+  end
+
+  def self.is_blocked(email)
+    false
   end
 
   def has_password?(password)

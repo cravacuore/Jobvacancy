@@ -80,7 +80,10 @@ describe User do
 			User.authenticate(email, @password).should eq @user
 		end
 
-	end
+		it 'should return false' do 
+			expect( User.is_blocked(@user.email)).to eq false
+		end
 
+	end
 end
 
