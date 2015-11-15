@@ -53,9 +53,13 @@ describe JobApplication do
     end
   end
 
-  describe 'password ok' do
+  describe 'strong password' do
     it 'password with one letter uppercase, lowercase, one number and length >= 6 its ok' do
       expect(JobApplication.correctPasswd('Itsok1')).to eq true
+    end
+
+    it 'password with one letter uppercase, lowercase, one number and length < 6 fail' do
+      expect(JobApplication.correctPasswd('Dont1')).to eq false
     end
   end
 
