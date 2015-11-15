@@ -1,3 +1,5 @@
+require_relative '../exceptions/non_existing_user_error'
+
 class User
   include DataMapper::Resource
 
@@ -26,7 +28,7 @@ class User
 
   def self.authenticate_account(email)
     user = User.find_by_email(email)
-    raise NonExistingUserError if user.nil?
+    raise NonExistingUserError.new if user.nil?
     user
   end
 
@@ -35,7 +37,9 @@ class User
   end
 
   def authenticate_password(password, user)
-    has_password?(password)? user : nil
+    user = has_password?(password)? user : nil
+    raise WrongPasswordError.new if user.nil?
+    user
   end
 
 end
