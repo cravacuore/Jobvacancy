@@ -1,5 +1,5 @@
 JobVacancy::App.controllers :users do
-  
+
   # get :index, :map => '/foo/bar' do
   #   session[:foo] = 'bar'
   #   render 'index'
@@ -29,18 +29,24 @@ JobVacancy::App.controllers :users do
     params[:user].reject!{|k,v| k == 'password_confirmation'}
     if (params[:user][:password] == password_confirmation)
       @user = User.new(params[:user])
-      if @user.save
-        flash[:success] = 'User created'
-        redirect '/'
+      if Checker.correctPasswd(params[:user][:password])
+        if @user.save
+          flash[:success] = 'User created'
+          redirect '/'
+        else
+          flash.now[:error] = 'All fields are mandatory'
+          render 'users/new'
+        end
       else
-        flash.now[:error] = 'All fields are mandatory'
+        flash.now[:error] = 'Your password must have at least 6 characters including lowercase, uppercase and numbers'
         render 'users/new'
       end
     else
       @user = User.new (params[:user])
       flash.now[:error] = 'Passwords do not match'
-      render 'users/new'          
+      render 'users/new'
     end
   end
+
 
 end
