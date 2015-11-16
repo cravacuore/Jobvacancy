@@ -1,4 +1,6 @@
 require 'spec_helper'
+require_relative '../../../app/exceptions/non_existing_user_error'
+require_relative '../../../app/exceptions/wrong_password_error'
 
 describe User do
 
@@ -23,7 +25,6 @@ describe User do
 	  	user.password = 'a_secure_passWord!'
 	  	expect(user.valid?).to eq false
 	  end
-
 
 	  it 'should be false when email is not valid' do
 	  	user.name = 'John Doe'
@@ -56,17 +57,21 @@ describe User do
 		 	@user.password = @password
 		end
 
-		it 'should return nil when password do not match' do
+		it 'should raise WrongPasswordError when password do not match' do
 			email = @user.email
 			password = 'wrong_password'
 			User.should_receive(:find_by_email).with(email).and_return(@user)
-			User.authenticate(email, password).should be_nil
+
+			expect{ User.authenticate(email, password) }.
+        to raise_error(WrongPasswordError)
 		end
 
-		it 'should return nil when email do not match' do
-			email = 'wrong@email.com'
+		it 'should raise NonExisingUserError when email do not match' do
+			email = 'wrong@email.com' 
 			User.should_receive(:find_by_email).with(email).and_return(nil)
-			User.authenticate(email, @password).should be_nil
+			
+			expect{ User.authenticate(email, @password) }.
+        to raise_error(NonExistingUserError)
 		end
 
 		it 'should return the user when email and password match' do
@@ -74,8 +79,58 @@ describe User do
 			User.should_receive(:find_by_email).with(email).and_return(@user)
 			User.authenticate(email, @password).should eq @user
 		end
-
 	end
 
+	describe '#is_blocked?' do
+
+		before do
+			@wrong_password = 'wrong_password'
+			@password = 'password'
+		 	@user = User.new
+		 	@user.email = 'john.doe@someplace.com'
+		 	@user.password = @password
+		end
+
+		it 'should return false when the user is created' do 
+			expect( User.is_blocked?(@user.email)).to eq false
+		end
+
+		it 'should return false when the user puts once a wrong password' do 
+			User.should_receive(:find_by_email).with(@user.email).and_return(@user)
+			
+			begin
+				User.authenticate(@user.email, @wrong_password)
+			rescue RuntimeError
+			end
+
+			expect( User.is_blocked?(@user.email)).to eq false
+		end
+=begin 
+		
+		TODO:
+
+		it 'should return true when the user puts three times a wrong password' do 
+			User.should_receive(:find_by_email).with(@user.email).and_return(@user)
+			
+			begin
+				User.authenticate(@user.email, @wrong_password)
+			rescue RuntimeError
+			end
+
+			begin
+				User.authenticate(@user.email, @wrong_password)
+			rescue RuntimeError
+			end
+
+			begin
+				User.authenticate(@user.email, @wrong_password)
+			rescue RuntimeError
+			end
+
+
+			expect( User.is_blocked?(@user.email)).to eq true
+		end
+=end
+	end
 end
 

@@ -8,15 +8,16 @@ JobVacancy::App.controllers :sessions do
   post :create do
     email = params[:user][:email]
     password = params[:user][:password]
-    @user = User.authenticate(email, password)
-    if (@user.nil?)
+    begin
+      @user = User.authenticate(email, password)          
+
+    rescue RuntimeError => e 
       @user = User.new
-      flash.now[:error] = 'Invalid credentials'
-      render 'sessions/new'
-    else
-      sign_in @user
-      redirect '/'          
+      flash[:error] = e.message
+      redirect '/login'
     end
+    sign_in @user
+    redirect '/'
   end
 
   get :destroy, :map => '/logout' do 

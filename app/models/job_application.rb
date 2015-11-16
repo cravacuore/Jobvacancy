@@ -1,3 +1,6 @@
+require_relative '../exceptions/wrong_email_adress_error'
+require_relative '../exceptions/empty_fields_error'
+
 class JobApplication
 
   attr_accessor :applicant_email, :applicant_name, :applicant_cv_link
