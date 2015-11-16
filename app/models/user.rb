@@ -8,6 +8,7 @@ class User
   property :name, String
   property :crypted_password, String
   property :email, String
+  property :attempts, Integer, :default => 0
   has n, :job_offers
 
   validates_presence_of :name
@@ -20,10 +21,9 @@ class User
   end
 
   def self.authenticate(email, password)
-    #unless User.is_blocked?(email)
-      user = User.authenticate_account(email)
-      user.authenticate_password(password, user)  
-    #end
+    User.is_blocked?(email)
+    user = User.authenticate_account(email)
+    user.authenticate_password(password, user)  
   end
 
   def self.authenticate_account(email)
@@ -32,8 +32,8 @@ class User
     user
   end
 
-  def self.is_blocked(email)
-    false
+  def self.is_blocked?(email)
+    self.attempts.primitive == 3
   end
 
   def has_password?(password)
@@ -42,8 +42,14 @@ class User
 
   def authenticate_password(password, user)
     user = has_password?(password)? user : nil
-    raise WrongPasswordError.new if user.nil?
+    invalid_password if user.nil?
     user
+  end
+
+  def invalid_password
+    self.attempts = self.attempts + 1
+
+    raise WrongPasswordError.new
   end
 
 end
