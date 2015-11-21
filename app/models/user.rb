@@ -21,11 +21,15 @@ class User
     user = User.find_by_email(email)
 
     raise NonExistingUserError if user.nil?
-    user.has_password?(password)? user : nil
+    user.has_password?(password)
   end
 
   def has_password?(password)
-    ::BCrypt::Password.new(crypted_password) == password
+    unless ::BCrypt::Password.new(crypted_password) == password
+      #attempts = attempts + 1
+      raise WrongPasswordError 
+    end 
+    self
   end
 
 end

@@ -1,5 +1,6 @@
 require 'spec_helper'
 require_relative '../../../app/exceptions/non_existing_user_error'
+require_relative '../../../app/exceptions/wrong_password_error'
 
 describe User do
 
@@ -64,11 +65,12 @@ describe User do
           to raise_error(NonExistingUserError)
 		end
 
-		it 'should return nil when password do not match' do
+		it 'should raise WrongPasswordError when password do not match' do
 			email = @user.email
 			password = 'wrong_password'
 			User.should_receive(:find_by_email).with(email).and_return(@user)
-			User.authenticate(email, password).should be_nil
+			expect{ User.authenticate(email, 'Wrong_Passw0rd') }.
+          to raise_error(WrongPasswordError)
 		end
 
 		it 'should return the user when email and password match' do
