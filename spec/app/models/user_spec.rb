@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'byebug'
 require_relative '../../../app/exceptions/non_existing_user_error'
 require_relative '../../../app/exceptions/wrong_password_error'
 
@@ -69,8 +70,22 @@ describe User do
 			email = @user.email
 			password = 'wrong_password'
 			User.should_receive(:find_by_email).with(email).and_return(@user)
-			expect{ User.authenticate(email, 'Wrong_Passw0rd') }.
+			expect{ User.authenticate(email, password) }.
           to raise_error(WrongPasswordError)
+		end
+
+		it 'should incremenet attempts when password do not match' do
+			email = @user.email
+			password = 'wrong_password'
+			
+			User.should_receive(:find_by_email).with(email).and_return(@user)
+      user = User.find_by_email(email)
+      
+      expect(user.attempts).to be 0
+			User.should_receive(:find_by_email).with(email).and_return(@user)
+			expect{ User.authenticate(email, password) }.
+          to raise_error(WrongPasswordError)
+      expect(user.attempts).to be 1
 		end
 
 		it 'should return the user when email and password match' do
