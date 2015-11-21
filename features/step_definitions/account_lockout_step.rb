@@ -8,25 +8,21 @@ Given(/^the account with name "(.*?)" with email: "(.*?)" and password: "(.*?)"$
 end
 
 Given(/^the login page$/) do
-	visit '/login'
+  visit '/login'
 end
 
-When(/^I insert the email "(.*?)"$/) do |my_email|
-	fill_in('user[email]', with: my_email)
+When(/^I insert the email "(.*?)"$/) do |arg1|
+  fill_in('user[email]', with: my_email)
 end
 
-When(/^I insert the password "(.*?)"$/) do |my_password|
+When(/^I insert the password "(.*?)"$/) do |arg1|
   fill_in('user[password]', with: my_password)
 end
 
 When(/^login$/) do
-	click_button('Login')
+  click_button('Login')
 end
 
-Then(/^I should see an error message "(.*?)"$/) do |error_message|
+Then(/^I should see an error message "(.*?)"$/) do |arg1|
   page.should have_content(error_message)
-end
-
-Then(/^my account has to be blocked\.$/) do
-  pending # express the regexp above with the code you wish you had
 end

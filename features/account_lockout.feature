@@ -19,4 +19,3 @@ Scenario: Inserting password incorrectly three times
 	When I insert the password "pericon1"
 	And login
 	Then I should see an error message "Wrong password, you has no more attemps. Account blocked for 24 hours"
-	And my account has to be blocked.
