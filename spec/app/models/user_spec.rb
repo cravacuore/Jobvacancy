@@ -1,6 +1,7 @@
 require 'spec_helper'
 require_relative '../../../app/exceptions/non_existing_user_error'
 require_relative '../../../app/exceptions/wrong_password_error'
+require_relative '../../../app/exceptions/blocked_account_error'
 
 describe User do
 
@@ -88,7 +89,26 @@ describe User do
 		end
 
 		it 'should raise BlockedAccountError when password do not match 3 times consecutives' do
-			# TODO
+			email = @user.email
+			password = 'wrong_password'
+			User.should_receive(:find_by_email).with(email).and_return(@user)
+      user = User.find_by_email(email)    
+			
+      expect(user.attempts).to be 0
+			begin
+				User.should_receive(:find_by_email).with(email).and_return(@user)
+				User.authenticate(email, password)
+			rescue WrongPasswordError
+				begin
+					User.should_receive(:find_by_email).with(email).and_return(@user)
+					User.authenticate(email, password)
+				rescue WrongPasswordError
+				end
+			end
+      expect(user.attempts).to be 2
+      User.should_receive(:find_by_email).with(email).and_return(@user)
+      expect{ User.authenticate(email, password) }.
+          to raise_error(BlockedAccountError)
 		end
 
 		it 'should return the user when email and password match' do
