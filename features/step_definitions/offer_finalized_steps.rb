@@ -1,5 +1,5 @@
-=begin
 Given(/^I go the login page$/) do
+	visit '/'
 	visit '/login'
 end
 
@@ -30,5 +30,3 @@ end
 
 Then(/^the public can not see the offer "(.*?)"$/) do |my_offer|
 end
-
-=end
