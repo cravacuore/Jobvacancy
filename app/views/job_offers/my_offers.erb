@@ -33,6 +33,10 @@
                 <button type='submit' title="Delete offer" rel='tooltip' class="btn btn-secondary" >Delete
                 </button>
        <% end %>
+       <%- form_tag url(:job_offers, :finalize, :offer_id => offer.id), :method => :put, :style => 'display:inline' do %>
+                <button type='submit' title="Finalize offer" rel='tooltip' class="btn btn-secondary" >Finalize
+                </button>
+       <% end %>
        <% if not offer.is_active %>
 				<%- form_tag url(:job_offers, :activate, :offer_id => offer.id), :method => :put, :style => 'display:inline' do %>
 	                <button type='submit' title="Activate offer" rel='tooltip' class="btn btn-secondary" >Activate

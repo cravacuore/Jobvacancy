@@ -96,7 +96,7 @@ describe JobOffer do
       offer
     end
 
-    it 'should finalize the offer with deactivate' do
+    it 'should finalize the offer with deactivate, offer.is_active? --> false' do
       offer.deactivate
       expect(offer.is_active).to eq false
     end
