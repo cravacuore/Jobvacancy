@@ -1,4 +1,5 @@
 require 'spec_helper'
+require_relative '../../../app/exceptions/non_existing_user_error'
 
 describe User do
 
@@ -11,6 +12,7 @@ describe User do
 		it { should respond_to( :crypted_password) }
 		it { should respond_to( :email ) }
 		it { should respond_to( :job_offers ) }
+		it { should respond_to( :attempts ) }
 
 	end
 
@@ -50,10 +52,16 @@ describe User do
 	describe 'authenticate' do
 
 		before do
-			@password = 'password'
 		 	@user = User.new
 		 	@user.email = 'john.doe@someplace.com'
-		 	@user.password = @password
+		 	@user.password = 'Passw0rd'
+		end
+
+		it 'should raise NonExistingUserError when email do not match' do
+			email = 'wrong@email.com'
+			User.should_receive(:find_by_email).with(email).and_return(nil)
+			expect{ User.authenticate(email, 'Passw0rd') }.
+          to raise_error(NonExistingUserError)
 		end
 
 		it 'should return nil when password do not match' do
@@ -63,16 +71,10 @@ describe User do
 			User.authenticate(email, password).should be_nil
 		end
 
-		it 'should return nil when email do not match' do
-			email = 'wrong@email.com'
-			User.should_receive(:find_by_email).with(email).and_return(nil)
-			User.authenticate(email, @password).should be_nil
-		end
-
 		it 'should return the user when email and password match' do
 			email = @user.email
 			User.should_receive(:find_by_email).with(email).and_return(@user)
-			User.authenticate(email, @password).should eq @user
+			User.authenticate(email, 'Passw0rd').should eq @user
 		end
 
 	end
