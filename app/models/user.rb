@@ -26,7 +26,7 @@ class User
 
   def has_password?(password)
     unless ::BCrypt::Password.new(crypted_password) == password
-      #attempts = attempts + 1
+      self.attempts = self.attempts + 1
       raise WrongPasswordError 
     end 
     self
