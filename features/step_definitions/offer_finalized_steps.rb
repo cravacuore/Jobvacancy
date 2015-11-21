@@ -1,5 +1,14 @@
 Given(/^I go the login page$/) do
-	visit '/login'
+	visit '/'
+
+  visit '/register'
+  fill_in('user[name]', :with => 'Emmanuel Pericon')
+  fill_in('user[email]', :with => 'brianpericon@gmail.com')
+  fill_in('user[password]', :with => 'Pericon92')
+  fill_in('user[password_confirmation]', :with => 'Pericon92')
+  click_button('Create')
+
+  visit '/login'
 end
 
 Given(/^I log in account email: "(.*?)" and password: "(.*?)"$/) do |email, password|
@@ -23,9 +32,14 @@ Given(/^I access the my offers page$/) do
 end
 
 When(/^I press button Finalize in the offer "(.*?)"$/) do |my_offer|
-	#click_button('Finalize')
-	#page.should have_content('false')
+	click_button('Finalize')
+  page.should have_content(my_offer)
+	page.should have_content('false')
 end
 
 Then(/^the public can not see the offer "(.*?)"$/) do |my_offer|
+  visit '/logout'
+  visit '/job_offers/latest'
+  page.should have_no_content(my_offer)
+  page.should have_no_content('false')
 end
