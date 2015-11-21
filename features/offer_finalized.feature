@@ -8,7 +8,8 @@ Background:
 	And I go the new offer page
 	And create one offer, with title: "Java development" and location: "La Plata"
 
-Scenario: Mark offer as finalized
+Scenario: Mark offer as finalized why the open position
 	Given I access the my offers page
-	When I press button Finalize in the offer "Java development"
-	Then the public can not see the offer "Java development"
+	And I press button Finalize in the offer "Java development"
+	When I press button "Reason"
+	Then should see the message "Your offer finalized for open position"

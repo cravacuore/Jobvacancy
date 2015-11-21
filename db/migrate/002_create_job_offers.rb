@@ -6,6 +6,7 @@ migration 2, :create_job_offers do
       column :location, DataMapper::Property::String, :length => 255
       column :description, DataMapper::Property::String, :length => 255
       column :benefits, DataMapper::Property::String, :length => 255
+      column :reason, DataMapper::Property::String, :length => 255
     end
   end
 

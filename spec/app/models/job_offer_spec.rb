@@ -100,6 +100,12 @@ describe JobOffer do
       offer.deactivate
       expect(offer.is_active).to eq false
     end
+
+    it 'should finalize the offer for open position' do
+      offer.deactivate
+      offer.set_reason('open position')
+      expect(offer.reason).to eq 'open position'
+    end
   end
 
 end

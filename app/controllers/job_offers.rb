@@ -103,7 +103,7 @@ JobVacancy::App.controllers :job_offers do
     else
       flash.now[:error] = 'Operation failed'
       redirect '/job_offers/my'
-    end  
+    end
   end
 
   put :activate, :with => :offer_id do
@@ -126,6 +126,13 @@ JobVacancy::App.controllers :job_offers do
       flash.now[:error] = 'Title is mandatory'
     end
     redirect 'job_offers/my'
+  end
+
+  put :reason do
+    @job_offer = JobOffer.get(params[:offer_id])
+    @job_offer.set_reason('one_reason')
+    
+    redirect '/job_offers/my'
   end
 
 end

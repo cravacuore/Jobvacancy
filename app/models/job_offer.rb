@@ -9,6 +9,9 @@ class JobOffer
   property :benefits, String
   property :created_on, Date
   property :updated_on, Date
+
+  property :reason, String
+
   property :is_active, Boolean, :default => true
   belongs_to :user
 
@@ -51,6 +54,10 @@ class JobOffer
 
   def deactivate
     self.is_active = false
+  end
+
+  def set_reason(reason)
+    self.reason = reason    
   end
 
 end

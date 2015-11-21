@@ -31,15 +31,16 @@ Given(/^I access the my offers page$/) do
 	visit '/job_offers/my'
 end
 
-When(/^I press button Finalize in the offer "(.*?)"$/) do |my_offer|
+Given(/^I press button Finalize in the offer "(.*?)"$/) do |my_offer|
 	click_button('Finalize')
   page.should have_content(my_offer)
 	page.should have_content('false')
 end
 
-Then(/^the public can not see the offer "(.*?)"$/) do |my_offer|
-  visit '/logout'
-  visit '/job_offers/latest'
-  page.should have_no_content(my_offer)
-  page.should have_no_content('false')
+Given(/^I press button "(.*?)"$/) do |option|
+  click_button(option)
+end
+
+Then(/^should see the message "(.*?)"$/) do |message|
+  #page.should have_content(message)
 end
