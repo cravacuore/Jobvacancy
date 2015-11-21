@@ -27,8 +27,10 @@ class User
   def has_password?(password)
     unless ::BCrypt::Password.new(crypted_password) == password
       self.attempts = self.attempts + 1
+      raise BlockedAccountError if self.attempts == 3
       raise WrongPasswordError 
     end 
+    self.attempts = 0
     self
   end
 
