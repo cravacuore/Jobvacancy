@@ -6,6 +6,7 @@
 		<th>Description</th>
     <th>Benefits</th>
 		<th>Is active</th>
+		<th>Reason of finalize</th>
 		<th>Actions</th>
 	</tr>
 	<% @offers.each do | offer| %>
@@ -25,20 +26,37 @@
     </td>
 		<td>
 			<%= offer.is_active %>
-		</td>		
+		</td>
+		<td>
+			<%= offer.reason %>
+		</td>
 
 		<td>
 			<%= link_to 'Edit', url_for(:job_offers, :edit, :offer_id => offer.id), :class => "btn btn-primary" %>
 			<%- form_tag url(:job_offers, :destroy, :offer_id => offer.id), :method => :delete, :style => 'display:inline' do %>
                 <button type='submit' title="Delete offer" rel='tooltip' class="btn btn-secondary" >Delete
                 </button>
-       <% end %>
-       <% if not offer.is_active %>
+      <% end %>
+      <%- form_tag url(:job_offers, :finalize, :offer_id => offer.id), :method => :put, :style => 'display:inline' do %>
+                <button type='submit' title="Finalize offer" rel='tooltip' class="btn btn-secondary" >Finalize
+                </button>
+      <% end %>
+      <% if not offer.is_active %>
 				<%- form_tag url(:job_offers, :activate, :offer_id => offer.id), :method => :put, :style => 'display:inline' do %>
 	                <button type='submit' title="Activate offer" rel='tooltip' class="btn btn-secondary" >Activate
 	                </button>
-	       <% end %>
-       <% end %>
+	      <% end %>
+
+				<table class="table table-bordered">
+					<td>		
+
+					<p>Select your reason of offer finalize: </p>
+							<%- form_tag url(:job_offers, :reason, :offer_id => offer.id), :method => :put, :style => 'display:inline' do %>
+	            		<button type='submit' title="Reason" rel='tooltip' class="btn btn-secondary" >Reason</button>
+	      			<% end %>
+					</td>
+				</table>
+      <% end %>
 		</td>	
 	</tr>
 

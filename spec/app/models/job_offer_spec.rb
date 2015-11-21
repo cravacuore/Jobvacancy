@@ -87,4 +87,25 @@ describe JobOffer do
 
 	end
 
+  describe 'offer finalized' do
+
+    let(:offer) do
+      offer = JobOffer.new
+      offer.title = "Java development"
+      offer.location = "La Plata"
+      offer
+    end
+
+    it 'should finalize the offer with deactivate, offer.is_active? --> false' do
+      offer.deactivate
+      expect(offer.is_active).to eq false
+    end
+
+    it 'should finalize the offer for open position' do
+      offer.deactivate
+      offer.set_reason('open position')
+      expect(offer.reason).to eq 'open position'
+    end
+  end
+
 end
