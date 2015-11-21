@@ -5,6 +5,7 @@ class User
   property :name, String
   property :crypted_password, String
   property :email, String
+  property :attempts, Integer, :default => 0
   has n, :job_offers
 
   validates_presence_of :name
@@ -18,12 +19,17 @@ class User
 
   def self.authenticate(email, password)
     user = User.find_by_email(email)
-    return nil if user.nil?
-    user.has_password?(password)? user : nil
+
+    raise NonExistingUserError if user.nil?
+    user.has_password?(password)
   end
 
   def has_password?(password)
-    ::BCrypt::Password.new(crypted_password) == password
+    unless ::BCrypt::Password.new(crypted_password) == password
+      #attempts = attempts + 1
+      raise WrongPasswordError 
+    end 
+    self
   end
 
 end
