@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'byebug'
 require_relative '../../../app/exceptions/non_existing_user_error'
 require_relative '../../../app/exceptions/wrong_password_error'
 
@@ -88,10 +87,18 @@ describe User do
       expect(user.attempts).to be 1
 		end
 
+		it 'should raise BlockedAccountError when password do not match 3 times consecutives' do
+			# TODO
+		end
+
 		it 'should return the user when email and password match' do
 			email = @user.email
 			User.should_receive(:find_by_email).with(email).and_return(@user)
 			User.authenticate(email, 'Passw0rd').should eq @user
+		end
+
+		it 'should restart attempts when email and password match' do
+			# TODO
 		end
 
 	end
