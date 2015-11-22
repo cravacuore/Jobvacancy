@@ -6,6 +6,7 @@ migration 1, :create_users do
       column :crypted_password, DataMapper::Property::String, :length => 255
       column :email, DataMapper::Property::String, :length => 255
       column :attempts, DataMapper::Property::Integer
+      column :blocked, DataMapper::Property::Boolean
     end
   end
 

@@ -51,6 +51,11 @@ describe User do
       @user = User.new(:email => 'john.doe@someplace.com', :password => 'Passw0rd')
     end
 
+    it 'should return the user when email and password match' do
+      User.should_receive(:find_by_email).with(@user.email).and_return(@user)
+      User.authenticate(@user.email, 'Passw0rd').should eq @user
+    end
+
     it 'should raise NonExistingUserError when email do not match' do
       email = 'wrong@email.com'
       User.should_receive(:find_by_email).with(email).and_return(nil)
@@ -72,6 +77,19 @@ describe User do
       expect(@user.attempts).to be 1
     end
 
+    it 'should restart attempts when email and password match' do
+      password = 'wrong_password'
+      expect(@user.attempts).to be 0
+
+      User.should_receive(:find_by_email).with(@user.email).and_return(@user)
+      expect{ User.authenticate(@user.email, password) }.to raise_error(WrongPasswordError)
+      expect(@user.attempts).to be 1
+
+      User.should_receive(:find_by_email).with(@user.email).and_return(@user)
+      User.authenticate(@user.email, 'Passw0rd').should eq @user
+      expect(@user.attempts).to be 0
+    end
+
     it 'should raise BlockedAccountError when password do not match 3 times consecutives' do
       password = 'wrong_password'
 
@@ -88,26 +106,22 @@ describe User do
       expect(@user.attempts).to be 3
     end
 
-    it 'should return the user when email and password match' do
-      User.should_receive(:find_by_email).with(@user.email).and_return(@user)
-      User.authenticate(@user.email, 'Passw0rd').should eq @user
-    end
-
-    it 'should restart attempts when email and password match' do
+    it 'should return true when ask for the user account after three attempts' do
       password = 'wrong_password'
-      expect(@user.attempts).to be 0
+      expect(@user.blocked).to be false
 
       User.should_receive(:find_by_email).with(@user.email).and_return(@user)
       expect{ User.authenticate(@user.email, password) }.to raise_error(WrongPasswordError)
       expect(@user.attempts).to be 1
 
       User.should_receive(:find_by_email).with(@user.email).and_return(@user)
-      User.authenticate(@user.email, 'Passw0rd').should eq @user
-      expect(@user.attempts).to be 0
-    end
+      expect{ User.authenticate(@user.email, password) }.to raise_error(WrongPasswordError)
+      expect(@user.attempts).to be 2
 
-    it 'should raise BlockedAccountError when trying singin after block account' do
-      # TODO
+      User.should_receive(:find_by_email).with(@user.email).and_return(@user)
+      expect{ User.authenticate(@user.email, password) }.to raise_error(BlockedAccountError)
+      expect(@user.attempts).to be 3
+      expect(@user.blocked).to be true
     end
   end
 

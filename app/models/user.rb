@@ -10,6 +10,7 @@ class User
   property :crypted_password, String
   property :email, String
   property :attempts, Integer, :default => 0
+  property :blocked, Boolean, :default => false
   has n, :job_offers
 
   validates_presence_of :name
@@ -23,10 +24,18 @@ class User
 
   def self.authenticate(email, password)
     user = User.validate_account(email)
+    user.checkBlocked
     user.validate_password(password)
     user.attempts = 0
     user.save
     user
+  end
+
+  def checkBlocked
+    if self.attempts == 3 || self.blocked
+      self.blocked = true
+      raise BlockedAccountError.new 
+    end
   end
 
   def self.validate_account(email)
@@ -42,7 +51,7 @@ class User
   def wrong_password!
     self.attempts = self.attempts + 1
     self.save
-    raise BlockedAccountError.new if self.attempts == 3
+    self.checkBlocked
     raise WrongPasswordError.new((3 - attempts).to_s)
   end
 
