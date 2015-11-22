@@ -28,7 +28,6 @@ describe User do
 	  	expect(user.valid?).to eq false
 	  end
 
-
 	  it 'should be false when email is not valid' do
 	  	user.name = 'John Doe'
 	  	user.email = 'john'
@@ -118,6 +117,10 @@ describe User do
 		end
 
 		it 'should restart attempts when email and password match' do
+			# TODO
+		end
+
+		it 'should raise BlockedAccountError when trying singin after block account' do
 			# TODO
 		end
 
