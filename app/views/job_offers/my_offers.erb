@@ -51,8 +51,14 @@
 					<td>		
 
 					<p>Select your reason of offer finalize: </p>
-							<%- form_tag url(:job_offers, :reason, :offer_id => offer.id), :method => :put, :style => 'display:inline' do %>
-	            		<button type='submit' title="Reason" rel='tooltip' class="btn btn-secondary" >Reason</button>
+							<%- form_tag url(:job_offers, :reasonop, :offer_id => offer.id), :method => :put, :style => 'display:inline' do %>
+	            		<button type='submit' title="Reason open position" rel='tooltip' class="btn btn-secondary" >Open position</button>
+	      			<% end %>
+	      			<%- form_tag url(:job_offers, :reasonhis, :offer_id => offer.id), :method => :put, :style => 'display:inline' do %>
+	            		<button type='submit' title="Reason hired in site" rel='tooltip' class="btn btn-secondary" >Hared in site</button>
+	      			<% end %>
+	      			<%- form_tag url(:job_offers, :reasonhos, :offer_id => offer.id), :method => :put, :style => 'display:inline' do %>
+	            		<button type='submit' title="Reason hired out site" rel='tooltip' class="btn btn-secondary" >Hired out site</button>
 	      			<% end %>
 					</td>
 				</table>

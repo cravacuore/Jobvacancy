@@ -42,5 +42,5 @@ Given(/^I press button "(.*?)"$/) do |option|
 end
 
 Then(/^should see the message "(.*?)"$/) do |message|
-  #page.should have_content(message)
+  page.should have_content(message)
 end

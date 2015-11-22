@@ -50,14 +50,15 @@ class JobOffer
 
   def activate
     self.is_active = true
+    self.set_reason("")
   end
 
   def deactivate
     self.is_active = false
   end
 
-  def set_reason(reason)
-    self.reason = reason    
+  def set_reason(r)
+    self.reason = r
   end
 
 end

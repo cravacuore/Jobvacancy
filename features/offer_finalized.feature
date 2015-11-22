@@ -11,5 +11,5 @@ Background:
 Scenario: Mark offer as finalized why the open position
 	Given I access the my offers page
 	And I press button Finalize in the offer "Java development"
-	When I press button "Reason"
+	When I press button "Open position"
 	Then should see the message "Your offer finalized for open position"

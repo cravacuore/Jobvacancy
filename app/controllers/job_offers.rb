@@ -1,3 +1,5 @@
+require 'byebug'
+
 JobVacancy::App.controllers :job_offers do
   
   get :my do
@@ -128,11 +130,40 @@ JobVacancy::App.controllers :job_offers do
     redirect 'job_offers/my'
   end
 
-  put :reason do
+  put :reasonop, :with => :offer_id do
     @job_offer = JobOffer.get(params[:offer_id])
-    @job_offer.set_reason('one_reason')
-    
-    redirect '/job_offers/my'
+    @job_offer.set_reason('Open position')
+    if @job_offer.save
+      flash[:success] = 'Your offer finalized for open position'
+      redirect '/job_offers/my'
+    else
+      flash.now[:error] = 'Operation failed'
+      redirect '/job_offers/my'
+    end 
+  end
+
+  put :reasonhis, :with => :offer_id do
+    @job_offer = JobOffer.get(params[:offer_id])
+    @job_offer.set_reason('Hared in site')
+    if @job_offer.save
+      flash[:success] = 'Your offer finalized for hired in site'
+      redirect '/job_offers/my'
+    else
+      flash.now[:error] = 'Operation failed'
+      redirect '/job_offers/my'
+    end 
+  end
+
+  put :reasonhos, :with => :offer_id do
+    @job_offer = JobOffer.get(params[:offer_id])
+    @job_offer.set_reason('Hired out site')
+    if @job_offer.save
+      flash[:success] = 'Your offer finalized for hired out site'
+      redirect '/job_offers/my'
+    else
+      flash.now[:error] = 'Operation failed'
+      redirect '/job_offers/my'
+    end 
   end
 
 end
