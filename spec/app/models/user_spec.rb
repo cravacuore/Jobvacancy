@@ -106,7 +106,7 @@ describe User do
       expect(@user.attempts).to be 3
     end
 
-    it 'should return true when ask for the user account after three attempts' do
+    it 'the account will be blocked after three attempts' do
       password = 'wrong_password'
       expect(@user.blocked).to be false
 
@@ -122,6 +122,7 @@ describe User do
       expect{ User.authenticate(@user.email, password) }.to raise_error(BlockedAccountError)
       expect(@user.attempts).to be 3
       expect(@user.blocked).to be true
+      expect(@user.time_of_block).to eq Time.new(Time.now.year, Time.now.month, Time.now.day)
     end
   end
 

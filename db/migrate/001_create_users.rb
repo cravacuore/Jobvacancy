@@ -7,6 +7,7 @@ migration 1, :create_users do
       column :email, DataMapper::Property::String, :length => 255
       column :attempts, DataMapper::Property::Integer
       column :blocked, DataMapper::Property::Boolean
+      column :time_of_block, DataMapper::Property::Time
     end
   end
 
