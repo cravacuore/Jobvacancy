@@ -1,3 +1,7 @@
+require_relative '../../app/exceptions/non_existing_user_error'
+require_relative '../../app/exceptions/wrong_password_error'
+require_relative '../../app/exceptions/blocked_account_error'
+
 Given(/^the account with name "(.*?)" with email: "(.*?)" and password: "(.*?)"$/) do |arg1, arg2, arg3|
   visit '/register'
   fill_in('user[name]', :with => arg1)
@@ -12,11 +16,11 @@ Given(/^the login page$/) do
 end
 
 When(/^I insert the email "(.*?)"$/) do |arg1|
-  fill_in('user[email]', with: my_email)
+  fill_in('user[email]', with: arg1)
 end
 
 When(/^I insert the password "(.*?)"$/) do |arg1|
-  fill_in('user[password]', with: my_password)
+  fill_in('user[password]', with: arg1)
 end
 
 When(/^login$/) do
@@ -24,5 +28,5 @@ When(/^login$/) do
 end
 
 Then(/^I should see an error message "(.*?)"$/) do |arg1|
-  page.should have_content(error_message)
+  page.should have_content(arg1)
 end

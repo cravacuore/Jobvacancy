@@ -1,4 +1,3 @@
-@wip
 Feature: Blocked account 
 	As user of the site 
 	I want to have three chances to type my password, 
@@ -12,10 +11,12 @@ Scenario: Inserting password incorrectly three times
 	When I insert the email "brianpericon@gmail.com"
 	When I insert the password "pericon"
 	And login
-	Then I should see an error message "Wrong password, you has 2 attemps"
+	Then I should see an error message "Wrong password"
+	When I insert the email "brianpericon@gmail.com"
 	When I insert the password "Pericon"
 	And login
-	Then I should see an error message "Wrong password, you has 1 attemp"
+	Then I should see an error message "Wrong password"
+	When I insert the email "brianpericon@gmail.com"
 	When I insert the password "pericon1"
 	And login
-	Then I should see an error message "Wrong password, you has no more attemps. Account blocked for 24 hours"
+	Then I should see an error message "Account blocked for 24 hours"
