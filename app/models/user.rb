@@ -1,3 +1,7 @@
+require_relative '../exceptions/non_existing_user_error'
+require_relative '../exceptions/wrong_password_error'
+require_relative '../exceptions/blocked_account_error'
+
 class User
   include DataMapper::Resource
 
@@ -18,20 +22,32 @@ class User
   end
 
   def self.authenticate(email, password)
-    user = User.find_by_email(email)
+    user = User.validate_account(email)
+    user.validate_password(password)
+    user.attempts = 0
+    user.save
+    user
+  end
 
+  def self.validate_account(email)
+    user = User.find_by_email(email)
     raise NonExistingUserError if user.nil?
-    user.has_password?(password)
+    user 
+  end
+
+  def validate_password(password)
+    wrong_password! unless has_password?(password)
+  end
+
+  def wrong_password!
+    self.attempts = self.attempts + 1
+    self.save
+    raise BlockedAccountError if self.attempts == 3
+    raise WrongPasswordError
   end
 
   def has_password?(password)
-    unless ::BCrypt::Password.new(crypted_password) == password
-      self.attempts = self.attempts + 1
-      raise BlockedAccountError if self.attempts == 3
-      raise WrongPasswordError 
-    end 
-    self.attempts = 0
-    self
+    ::BCrypt::Password.new(crypted_password) == password
   end
 
 end

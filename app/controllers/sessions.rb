@@ -9,10 +9,9 @@ JobVacancy::App.controllers :sessions do
     email = params[:user][:email]
     password = params[:user][:password]
     begin
-      @user = User.authenticate(email, password)          
+      @user = User.authenticate(email, password)
 
     rescue RuntimeError => e 
-      @user = User.new
       flash[:error] = e.message
       redirect '/login'
     end
