@@ -31,7 +31,7 @@ class User
 
   def self.validate_account(email)
     user = User.find_by_email(email)
-    raise NonExistingUserError if user.nil?
+    raise NonExistingUserError.new if user.nil?
     user 
   end
 
@@ -42,8 +42,8 @@ class User
   def wrong_password!
     self.attempts = self.attempts + 1
     self.save
-    raise BlockedAccountError if self.attempts == 3
-    raise WrongPasswordError
+    raise BlockedAccountError.new if self.attempts == 3
+    raise WrongPasswordError.new((3 - attempts).to_s)
   end
 
   def has_password?(password)

@@ -73,7 +73,7 @@ describe User do
           to raise_error(WrongPasswordError)
 		end
 
-		it 'should incremenet attempts when password do not match' do
+		it 'should increments attempts when password do not match' do
 			email = @user.email
 			password = 'wrong_password'
 			

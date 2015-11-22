@@ -11,11 +11,11 @@ Scenario: Inserting password incorrectly three times
 	When I insert the email "brianpericon@gmail.com"
 	When I insert the password "pericon"
 	And login
-	Then I should see an error message "Wrong password"
+	Then I should see an error message "Wrong password. You have 2 attemps more"
 	When I insert the email "brianpericon@gmail.com"
 	When I insert the password "Pericon"
 	And login
-	Then I should see an error message "Wrong password"
+	Then I should see an error message "Wrong password. You have 1 attemps more"
 	When I insert the email "brianpericon@gmail.com"
 	When I insert the password "pericon1"
 	And login
