@@ -106,11 +106,24 @@ describe User do
 		end
 
 		it 'should restart attempts when email and password match' do
-	    #expect { tablero.chequearCelda(8, 8) }.to raise_error(RuntimeError)
-		end
+      password = 'wrong_password'
+      User.should_receive(:find_by_email).with(@user.email).and_return(@user)
+      user = User.find_by_email(@user.email)    
+      
+      expect(user.attempts).to be 0
+      begin
+        User.should_receive(:find_by_email).with(@user.email).and_return(@user)
+        User.authenticate(@user.email, password)
+      rescue WrongPasswordError
+      end
+      expect(user.attempts).to be 1
+      User.should_receive(:find_by_email).with(@user.email).and_return(@user)
+      User.authenticate(@user.email, 'Passw0rd')
+      expect(user.attempts).to be 0
+    end
 
-		it 'should raise BlockedAccountError when trying singin after block account' do
-			# TODO
+    it 'should raise BlockedAccountError when trying singin after block account' do
+      # TODO
 		end
 	end
 
