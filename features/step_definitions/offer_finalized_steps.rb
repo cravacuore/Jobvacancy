@@ -2,8 +2,8 @@ Given(/^I go the login page$/) do
 	visit '/'
 
   visit '/register'
-  fill_in('user[name]', :with => 'Emmanuel Pericon')
-  fill_in('user[email]', :with => 'brianpericon@gmail.com')
+  fill_in('user[name]', :with => 'Brian Pericon')
+  fill_in('user[email]', :with => 'brian@gmail.com')
   fill_in('user[password]', :with => 'Pericon92')
   fill_in('user[password_confirmation]', :with => 'Pericon92')
   click_button('Create')
