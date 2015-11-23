@@ -1,5 +1,3 @@
-require 'byebug'
-
 JobVacancy::App.controllers :job_offers do
   
   get :my do
@@ -144,7 +142,7 @@ JobVacancy::App.controllers :job_offers do
 
   put :reasonhis, :with => :offer_id do
     @job_offer = JobOffer.get(params[:offer_id])
-    @job_offer.set_reason('Hared in site')
+    @job_offer.set_reason('Hired in site')
     if @job_offer.save
       flash[:success] = 'Your offer finalized for hired in site'
       redirect '/job_offers/my'
