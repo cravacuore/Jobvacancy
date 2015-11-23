@@ -1,4 +1,3 @@
-@wip
 Feature: Offer finalized
 	As offerer
 	I want mark the offer as finalized
