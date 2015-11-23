@@ -122,7 +122,7 @@ describe User do
       expect{ User.authenticate(@user.email, password) }.to raise_error(BlockedAccountError)
       expect(@user.attempts).to be 3
       expect(@user.blocked).to be true
-      expect(@user.time_of_block).to eq Time.new(Time.now.year, Time.now.month, Time.now.day)
+      expect(@user.time_of_block).to eq DateTime.new(DateTime.now.year, DateTime.now.month, DateTime.now.day)
     end
   end
 

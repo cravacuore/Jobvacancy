@@ -11,12 +11,12 @@ Scenario: Inserting password incorrectly three times
 	When I insert the email "brianpericon@gmail.com"
 	When I insert the password "pericon"
 	And login
-	Then I should see an error message "Wrong password. You have 2 attemps more"
+	Then I should see an error message "Wrong password. You have 2 attempts more"
 	When I insert the email "brianpericon@gmail.com"
 	When I insert the password "Pericon"
 	And login
-	Then I should see an error message "Wrong password. You have 1 attemps more"
+	Then I should see an error message "Wrong password. You have 1 attempts more"
 	When I insert the email "brianpericon@gmail.com"
 	When I insert the password "pericon1"
 	And login
-	Then I should see an error message "Account blocked for 24 hours"
+	Then I should see an error message "Account has been blocked for 24 hours"

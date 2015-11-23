@@ -1,7 +1,7 @@
 class WrongPasswordError < RuntimeError
   
-  def initialize(attemps)
-    super('Wrong password. You have ' + attemps + ' attemps more')
+  def initialize(attempts)
+    super('Wrong password. You have ' + attempts + ' attempts more')
   end
 
 end
