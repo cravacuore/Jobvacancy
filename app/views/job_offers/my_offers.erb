@@ -1,16 +1,17 @@
 <h1>My Job Offers</h1>
 <table class="table table-bordered">
+	<% @offers.each do | offer| %>
 	<tr>
 		<th>Title</th>
 		<th>Location</th>
 		<th>Description</th>
     <th>Benefits</th>
 		<th>Is active</th>
-		<th>Reason of finalize</th>
+		<% if not offer.is_active %>
+			<th>Reason of finalize</th>
+		<% end %>
 		<th>Actions</th>
 	</tr>
-	<% @offers.each do | offer| %>
-
 	<tr>
 			<td>
 			<%= offer.title %>
@@ -27,10 +28,11 @@
 		<td>
 			<%= offer.is_active %>
 		</td>
-		<td>
-			<%= offer.reason %>
-		</td>
-
+		<% if not offer.is_active %>
+			<td>
+				<%= offer.reason %>
+			</td>
+		<% end %>
 		<td>
 			<%= link_to 'Edit', url_for(:job_offers, :edit, :offer_id => offer.id), :class => "btn btn-primary" %>
 			<%- form_tag url(:job_offers, :destroy, :offer_id => offer.id), :method => :delete, :style => 'display:inline' do %>
@@ -51,8 +53,14 @@
 					<td>		
 
 					<p>Select your reason of offer finalize: </p>
-							<%- form_tag url(:job_offers, :reason, :offer_id => offer.id), :method => :put, :style => 'display:inline' do %>
-	            		<button type='submit' title="Reason" rel='tooltip' class="btn btn-secondary" >Reason</button>
+							<%- form_tag url(:job_offers, :reasonop, :offer_id => offer.id), :method => :put, :style => 'display:inline' do %>
+	            		<button type='submit' title="Reason open position" rel='tooltip' class="btn btn-secondary" >Open position</button>
+	      			<% end %>
+	      			<%- form_tag url(:job_offers, :reasonhis, :offer_id => offer.id), :method => :put, :style => 'display:inline' do %>
+	            		<button type='submit' title="Reason hired in site" rel='tooltip' class="btn btn-secondary" >Hired in site</button>
+	      			<% end %>
+	      			<%- form_tag url(:job_offers, :reasonhos, :offer_id => offer.id), :method => :put, :style => 'display:inline' do %>
+	            		<button type='submit' title="Reason hired out site" rel='tooltip' class="btn btn-secondary" >Hired out site</button>
 	      			<% end %>
 					</td>
 				</table>

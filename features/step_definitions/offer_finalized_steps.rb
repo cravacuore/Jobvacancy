@@ -37,10 +37,14 @@ Given(/^I press button Finalize in the offer "(.*?)"$/) do |my_offer|
 	page.should have_content('false')
 end
 
-Given(/^I press button "(.*?)"$/) do |option|
+Then(/^the offer show one column of name "(.*?)"$/) do |title_column|
+  page.should have_content(title_column)
+end
+
+Given(/^I press button "(.*?)" in the offer "Java development"$/) do |option|
   click_button(option)
 end
 
 Then(/^should see the message "(.*?)"$/) do |message|
-  #page.should have_content(message)
+  page.should have_content(message)
 end
