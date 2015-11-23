@@ -1,7 +1,7 @@
 require 'spec_helper'
 require_relative '../../../app/exceptions/non_existing_user_error'
 require_relative '../../../app/exceptions/wrong_password_error'
-require_relative '../../../app/exceptions/blocked_account_error'
+require_relative '../../../app/exceptions/locked_account_error'
 
 describe User do
 
@@ -90,7 +90,7 @@ describe User do
       expect(@user.attempts).to be 0
     end
 
-    it 'should raise BlockedAccountError when password do not match 3 times consecutives' do
+    it 'should raise lockedAccountError when password do not match 3 times consecutives' do
       password = 'wrong_password'
 
       User.should_receive(:find_by_email).with(@user.email).and_return(@user)
@@ -102,13 +102,13 @@ describe User do
       expect(@user.attempts).to be 2
 
       User.should_receive(:find_by_email).with(@user.email).and_return(@user)
-      expect{ User.authenticate(@user.email, password) }.to raise_error(BlockedAccountError)
+      expect{ User.authenticate(@user.email, password) }.to raise_error(LockedAccountError)
       expect(@user.attempts).to be 3
     end
 
-    it 'the account will be blocked after three attempts' do
+    it 'the account will be locked after three attempts' do
       password = 'wrong_password'
-      expect(@user.blocked).to be false
+      expect(@user.attempts).to be 0
 
       User.should_receive(:find_by_email).with(@user.email).and_return(@user)
       expect{ User.authenticate(@user.email, password) }.to raise_error(WrongPasswordError)
@@ -119,10 +119,9 @@ describe User do
       expect(@user.attempts).to be 2
 
       User.should_receive(:find_by_email).with(@user.email).and_return(@user)
-      expect{ User.authenticate(@user.email, password) }.to raise_error(BlockedAccountError)
+      expect{ User.authenticate(@user.email, password) }.to raise_error(LockedAccountError)
       expect(@user.attempts).to be 3
-      expect(@user.blocked).to be true
-      expect(@user.time_of_block).to eq DateTime.new(DateTime.now.year, DateTime.now.month, DateTime.now.day)
+      expect(@user.date_of_lock).to eq DateTime.new(DateTime.now.year, DateTime.now.month, DateTime.now.day)
     end
   end
 

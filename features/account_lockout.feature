@@ -1,7 +1,7 @@
-Feature: Blocked account 
+Feature: locked account 
 	As user of the site 
 	I want to have three chances to type my password, 
-	And after that my account will be blocked
+	And after that my account will be locked
 
 Background:
 	Given the account with name "Brian" with email: "brianpericon@gmail.com" and password: "Pericon92" 
@@ -19,4 +19,4 @@ Scenario: Inserting password incorrectly three times
 	When I insert the email "brianpericon@gmail.com"
 	When I insert the password "pericon1"
 	And login
-	Then I should see an error message "Account has been blocked for 24 hours"
+	Then I should see an error message "Account has been locked for 24 hours"

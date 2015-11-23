@@ -1,6 +1,6 @@
 require_relative '../../app/exceptions/non_existing_user_error'
 require_relative '../../app/exceptions/wrong_password_error'
-require_relative '../../app/exceptions/blocked_account_error'
+require_relative '../../app/exceptions/locked_account_error'
 
 Given(/^the account with name "(.*?)" with email: "(.*?)" and password: "(.*?)"$/) do |arg1, arg2, arg3|
   visit '/register'

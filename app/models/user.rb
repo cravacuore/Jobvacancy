@@ -1,6 +1,6 @@
 require_relative '../exceptions/non_existing_user_error'
 require_relative '../exceptions/wrong_password_error'
-require_relative '../exceptions/blocked_account_error'
+require_relative '../exceptions/locked_account_error'
 
 class User
   include DataMapper::Resource
@@ -10,8 +10,7 @@ class User
   property :crypted_password, String
   property :email, String
   property :attempts, Integer, :default => 0
-  property :blocked, Boolean, :default => false
-  property :time_of_block, DateTime
+  property :date_of_lock, DateTime
   has n, :job_offers
 
   validates_presence_of :name
@@ -25,7 +24,7 @@ class User
 
   def self.authenticate(email, password)
     user = User.validate_account(email)
-    user.check_blocked
+    user.check_locked
     user.validate_password(password)
     user.attempts = 0
     user.save
@@ -38,17 +37,16 @@ class User
     user
   end
 
-  def check_blocked
+  def check_locked
     unlock if self.attempts == 3 && needUnlock?
-    raise BlockedAccountError.new if self.attempts == 3 && !needUnlock?
+    raise LockedAccountError.new if self.attempts == 3 && !needUnlock?
   end
 
   def needUnlock?
-    DateTime.now >= self.time_of_block.next_day
+    DateTime.now >= self.date_of_lock.next_day
   end
 
   def unlock
-    self.blocked = false
     self.attempts = 0
   end
 
@@ -69,10 +67,9 @@ class User
 
   def lockAccount?
     if self.attempts == 3
-      self.blocked = true
-      self.time_of_block = DateTime.new(DateTime.now.year, DateTime.now.month, DateTime.now.day)
+      self.date_of_lock = DateTime.new(DateTime.now.year, DateTime.now.month, DateTime.now.day)
       self.save
-      raise BlockedAccountError.new 
+      raise LockedAccountError.new 
     end
   end
 
