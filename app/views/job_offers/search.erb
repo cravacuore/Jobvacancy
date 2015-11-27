@@ -4,26 +4,26 @@
 </div>
 -->
 <table>
-    <tr>
-      <th>Title</th>
-      <th>Location</th>
-      <th>Description</th>
-      <th>Actions</th>
-    </tr>
-    <% @offers.each do | offer| %>
+  <tr>
+    <th>Title</th>
+    <th>Location</th>
+    <th>Description</th>
+    <th>Actions</th>
+  </tr>
+  <% @offers.each do | offer| %>
 
     <tr>
       <td>
-          <%= offer.title %>
+        <%= offer.title %>
       </td>
       <td>
-          <%= offer.location %>
+        <%= offer.location %>
       </td>
       <td>
-          <%= offer.description %>
+        <%= offer.description %>
       </td>       
       <td>
-          <%= link_to 'Apply', url_for(:job_offers, :apply, :offer_id => offer.id) %>
+        <%= link_to 'Apply', url_for(:job_offers, :apply, :offer_id => offer.id) %>
       </td>       
     </tr>
 

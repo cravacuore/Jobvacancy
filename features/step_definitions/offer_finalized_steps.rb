@@ -1,5 +1,5 @@
 Given(/^I go the login page$/) do
-	visit '/'
+  visit '/'
 
   visit '/register'
   fill_in('user[name]', :with => 'Brian Pericon')
@@ -18,23 +18,23 @@ Given(/^I log in account email: "(.*?)" and password: "(.*?)"$/) do |email, pass
 end
 
 Given(/^I go the new offer page$/) do
-	visit '/job_offers/new'
+  visit '/job_offers/new'
 end
 
 Given(/^create one offer, with title: "(.*?)" and location: "(.*?)"$/) do |title, location|
-	fill_in('job_offer[title]', :with => title)
+  fill_in('job_offer[title]', :with => title)
   fill_in('job_offer[location]', :with => location)
   click_button('Create')
 end
 
 Given(/^I access the my offers page$/) do
-	visit '/job_offers/my'
+  visit '/job_offers/my'
 end
 
 Given(/^I press button Finalize in the offer "(.*?)"$/) do |my_offer|
-	click_button('Finalize')
+  click_button('Finalize')
   page.should have_content(my_offer)
-	page.should have_content('false')
+  page.should have_content('false')
 end
 
 Then(/^the offer show one column of name "(.*?)"$/) do |title_column|
