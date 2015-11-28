@@ -48,6 +48,17 @@ class JobOffer
     end
   end
 
+  def self.duplicate(offer)
+    return offer unless offer 
+    job_offer = JobOffer.new
+
+    job_offer.title = offer.title
+    job_offer.location = offer.location
+    job_offer.description = offer.description
+    job_offer.benefits = offer.benefits
+    job_offer
+  end
+
   def activate
     self.is_active = true
     self.set_reason("")

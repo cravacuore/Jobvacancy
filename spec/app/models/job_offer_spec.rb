@@ -108,4 +108,24 @@ describe JobOffer do
     end
   end
 
+  describe 'duplicate' do
+
+    let(:offer) do
+      offer = JobOffer.new
+      offer.title = "Java development"
+      offer.location = "La Plata"
+      offer.benefits = "Gym"
+      offer.description = ""
+      offer
+    end
+    
+    it 'should return a copy when job_offer is not nil' do
+      expect(JobOffer.duplicate(offer)).to eq offer
+    end
+
+    it 'should return nil when job_offer is nil' do
+      expect(JobOffer.duplicate(nil)).to eq nil
+    end
+  end
+
 end
