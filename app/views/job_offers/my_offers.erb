@@ -36,6 +36,7 @@
             <button type='submit' title="Delete offer" rel='tooltip' class="btn btn-secondary" >Delete</button>
           <% end %>
           <%= link_to 'Finalize', url_for(:job_offers, :finalize, :offer_id => offer.id), :class => "btn btn-secondary" %>
+          <%= link_to 'Duplicate', url_for(:job_offers, :duplicate, :offer_id => offer.id), :class => "btn btn-primary" %>
         <% end %>
       </td> 
     </tr>

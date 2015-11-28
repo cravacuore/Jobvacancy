@@ -3,7 +3,7 @@ Given(/^I am in the register page$/) do
 end
 
 When(/^I fill the name with "(.*?)"$/) do |arg1|
-  fill_in('user[name]', :with => 'Passw0rd!')
+  fill_in('user[name]', :with => arg1)
 end
 
 And(/^I fill the email with "(.*?)"$/) do |arg1|
