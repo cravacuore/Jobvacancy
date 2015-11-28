@@ -1,10 +1,11 @@
-Given(/^I go the login page$/) do
+Given(/^I am in the login page$/) do
   visit '/register'
-  fill_in('user[name]', :with => 'Brian Pericon')
-  fill_in('user[email]', :with => 'brian@gmail.com')
-  fill_in('user[password]', :with => 'Pericon92')
-  fill_in('user[password_confirmation]', :with => 'Pericon92')
+  fill_in('user[name]', :with => 'Usuario')
+  fill_in('user[email]', :with => 'user@gmail.com')
+  fill_in('user[password]', :with => 'UserPassword123')
+  fill_in('user[password_confirmation]', :with => 'UserPassword123')
   click_button('Create')
+  page.should have_content('User created')
   visit '/login'
 end
 
@@ -22,22 +23,27 @@ Given(/^create one offer, with title: "(.*?)" and location: "(.*?)"$/) do |arg1,
   fill_in('job_offer[title]', :with => arg1)
   fill_in('job_offer[location]', :with => arg2)
   click_button('Create')
+  page.should have_content('Offer created')
 end
 
-Given(/^I access the my offers page$/) do
+Given(/^the my offers page$/) do
   visit '/job_offers/my'
 end
 
-When(/^I press button Finalize in the offer "(.*?)"$/) do |arg1|
-  click_button('Finalize')
+When(/^I click link Finalize$/) do
+  click_link('Finalize')
 end
 
-Then(/^the offer show one column of name "(.*?)"$/) do |arg1|
+Then(/^should see the title "(.*?)"$/) do |arg1|
   page.should have_content(arg1)
 end
 
 When(/^I select option "(.*?)"$/) do |arg1|
   select(arg1, from: 'reason')
+end
+
+When(/^click button Finalize$/) do
+  click_button('Finalize')
 end
 
 Then(/^should see the message "(.*?)"$/) do |arg1|

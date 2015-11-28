@@ -1,0 +1,32 @@
+<h1>Finalize Offer</h1>
+
+  <table class="table table-bordered">
+    <tr>
+      <th>Title</th>
+      <th>Location</th>
+      <th>Description</th>
+      <th>Benefits</th>
+      <th>Action</th>
+    </tr>
+    <tr>
+      <td>
+        <%= @job_offer.title %>
+      </td>
+      <td>
+        <%= @job_offer.location %>
+      </td>
+      <td>
+        <%= @job_offer.description %>
+      </td>   
+      <td>
+        <%= @job_offer.benefits %>
+      </td>
+      <td>
+        <% form_tag url(:job_offers, :finalize, :offer_id => @job_offer.id), :method => :put, :style => 'display:inline' do %>
+          <%= select_tag :reason, :options => ['Hiring open', 'Hiring in this site', 'Hiring in other site'], :selected => 'reason' %>
+          <button type='submit' title="Finalize" rel='tooltip' class="btn btn-primary" >Finalize</button>
+          <%= link_to 'Cancel', url_for(:job_offers, :my), :class => "btn btn-secondary", :id => 'cancelButton' %>
+        <% end %>
+      </td>
+    </tr>
+  </table>

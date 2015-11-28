@@ -94,11 +94,17 @@ JobVacancy::App.controllers :job_offers do
     end  
   end
 
+  get :finalize, :with =>:offer_id  do
+    @job_offer = JobOffer.find_by_id(params[:offer_id])
+    render 'job_offers/finalize'
+  end
+
   put :finalize, :with => :offer_id do
     @job_offer = JobOffer.get(params[:offer_id])
     @job_offer.deactivate
+    @job_offer.reason = params[:reason]
     if @job_offer.save
-      flash[:success] = 'Offer finalized'
+      flash[:success] = 'Offer finalized with ' + params[:reason]
       redirect '/job_offers/my'
     else
       flash.now[:error] = 'Operation failed'
