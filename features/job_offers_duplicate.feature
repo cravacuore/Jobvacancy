@@ -1,9 +1,8 @@
-@wip
 Feature: Duplicate Job Offers
   In order to duplicate offers
   As a job offerer
   I want to duplicate an offer
-
+ 
   Background:
     Given the account with Name "Gian", email "gianff@gmail.com" and password "Passw0rd"
     Given I am logged in with the email "gianff@gmail.com" and password "Passw0rd"
@@ -11,7 +10,8 @@ Feature: Duplicate Job Offers
 
   Scenario: Duplicate an offer
     Given I access the My Offers page
-    And I duplicate the offer
-    Then I should see in Title "Ruby Programmer", in Location "Quilmes", in Description "", in Benefits "None"
-    Given I Create the offer
+      And I duplicate the offer
+      And I change the Description with "We love code"
+      And I Create the offer
     Then I should see "Offer created"
+      And I should have 2 "Ruby Programmer" offers

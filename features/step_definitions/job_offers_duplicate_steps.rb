@@ -22,6 +22,7 @@ Given(/^I have an offer in My Offers with Title "(.*?)", Location "(.*?)", Descr
   visit '/job_offers/new'
   fill_in('job_offer[title]', :with => title)
   fill_in('job_offer[location]', :with => name_city)
+  @old_description = description
   fill_in('job_offer[description]', :with => description)
   fill_in('job_offer[benefits]', :with => benefits)
   click_button('Create')
@@ -31,7 +32,7 @@ Given(/^I have an offer in My Offers with Title "(.*?)", Location "(.*?)", Descr
   page.should have_content(description)
   page.should have_content(benefits)
 end
-
+ 
 Given(/^I access the My Offers page$/) do
   visit '/job_offers/my'
 end
@@ -40,17 +41,16 @@ Given(/^I duplicate the offer$/) do
   click_link('Duplicate')
 end
 
-Then(/^I should see in Title "(.*?)", in Location "(.*?)", in Description "(.*?)", in Benefits "(.*?)"$/) do |title, name_city, description, benefits|
-  page.should have_content(title)
-  page.should have_content(name_city)
-  page.should have_content(description)
-  page.should have_content(benefits)
-end
-
-Then(/^I set Description to "(.*?)"$/) do |description|
+Given(/^I change the Description with "(.*?)"$/) do |description|
+  @new_description = description
   fill_in('job_offer[description]', :with => description)
 end
 
 Given(/^I Create the offer$/) do
   click_button('Create')
+end
+
+Then(/^I should have (\d+) "(.*?)" offers$/) do |arg1, arg2|
+  page.should have_content(@new_description)
+  page.should have_content(@old_description)
 end
