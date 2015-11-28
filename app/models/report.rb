@@ -1,7 +1,7 @@
 class Report
 
   def offers_finalized_by(reason)
-    0
+    0 
   end
 
 end
