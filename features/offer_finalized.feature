@@ -1,3 +1,4 @@
+@wip
 Feature: Offer finalized
   As offerer
   I want mark the offer as finalized
@@ -8,22 +9,23 @@ Background:
   And I go the new offer page
   And create one offer, with title: "Java development" and location: "La Plata"
 
-Scenario: Mark offer as finalized
+Scenario: Mark offer finalized with open position
   Given I access the my offers page
   When I press button Finalize in the offer "Java development"
   Then the offer show one column of name "Reason of finalize"
+  When I select option "Hiring open"
+  Then should see the message "Your offer finalized with open position"
 
-Scenario: Mark offer finalized why the open position
+Scenario: Mark offer finalized with hiring in site
   Given I access the my offers page
-  When I press button "Open position" in the offer "Java development"
-  Then should see the message "Your offer finalized for open position"
+  When I press button Finalize in the offer "Java development"
+  Then the offer show one column of name "Reason of finalize"
+  When I select option "Hiring in this site"
+  Then should see the message "Your offer finalized by hiring in site"
 
-Scenario: Mark offer finalized why hired in site
+Scenario: Mark offer finalized with hiring other site
   Given I access the my offers page
-  When I press button "Hired in site" in the offer "Java development"
-  Then should see the message "Your offer finalized for hired in site"
-
-Scenario: Mark offer finalized why hired out site
-  Given I access the my offers page
-  When I press button "Hired out site" in the offer "Java development"
-  Then should see the message "Your offer finalized for hired out site"
+  When I press button Finalize in the offer "Java development"
+  Then the offer show one column of name "Reason of finalize"
+  When I select option "Hiring in other site"
+  Then should see the message "Your offer finalized by hiring to other site"
