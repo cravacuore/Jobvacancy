@@ -11,7 +11,8 @@ JobVacancy::App.controllers :job_offers do
   end  
 
   get :new do
-    @job_offer = JobOffer.new
+    @job_offer = JobOffer.duplicate(session[:job_offer]) || JobOffer.new
+    session[:job_offer] = nil
     render 'job_offers/new'
   end
 
@@ -162,6 +163,11 @@ JobVacancy::App.controllers :job_offers do
       flash.now[:error] = 'Operation failed'
       redirect '/job_offers/my'
     end 
+  end
+
+  get :duplicate do
+    session[:job_offer] = JobOffer.find_by_id(params[:offer_id])
+    redirect 'job_offers/new'
   end
 
 end

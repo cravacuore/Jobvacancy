@@ -124,7 +124,7 @@ describe JobOffer do
     end
 
     it 'should return nil when job_offer is nil' do
-      expect(JobOffer.duplicate(nil)).to eq nil
+      expect(JobOffer.duplicate(nil)).to eq false
     end
   end
 
