@@ -36,30 +36,21 @@ Given(/^I access the My Offers page$/) do
   visit '/job_offers/my'
 end
 
-Then(/^I should see a button "(.*?)"$/) do |button|
-  page.should have_content(button)
-end
-
 Given(/^I duplicate the offer$/) do
-  click_button('Duplicate')
+  click_link('Duplicate')
 end
 
-Then(/^I should see in Title "(.*?)"$/) do |title|
+Then(/^I should see in Title "(.*?)", in Location "(.*?)", in Description "(.*?)", in Benefits "(.*?)"$/) do |title, name_city, description, benefits|
   page.should have_content(title)
-end
-
-Then(/^I should see in Location "(.*?)"$/) do |name_city|
   page.should have_content(name_city)
-end
-
-Then(/^I should see in Description "(.*?)"$/) do |description|
   page.should have_content(description)
-end
-
-Then(/^I should see in Benefits "(.*?)"$/) do |benefits|
   page.should have_content(benefits)
 end
 
 Then(/^I set Description to "(.*?)"$/) do |description|
-    fill_in('job_offer[description]', :with => description)
+  fill_in('job_offer[description]', :with => description)
+end
+
+Given(/^I Create the offer$/) do
+  click_button('Create')
 end
