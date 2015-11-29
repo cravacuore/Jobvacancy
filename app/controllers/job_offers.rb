@@ -127,5 +127,10 @@ JobVacancy::App.controllers :job_offers do
     session[:job_offer] = JobOffer.find_by_id(params[:offer_id])
     redirect 'job_offers/new'
   end
+
+  get :report do
+    @report = Report.new
+    render 'job_offers/report'
+  end
   
 end

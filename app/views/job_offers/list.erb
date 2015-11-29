@@ -6,6 +6,11 @@
 		<input type="submit" value="search" id="search-button" class="btn btn-primary"/>
 	</form>
 </div>
+<% if not (current_user == nil) %>
+	<% if current_user.is_admin %>
+		<%= link_to 'Report', url_for(:job_offers, :report), :class => "btn btn-primary" %>
+	<% end %>
+<% end %>
 
 <table class="table table-bordered">
 	<tr>

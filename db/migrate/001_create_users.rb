@@ -7,6 +7,7 @@ migration 1, :create_users do
       column :email, DataMapper::Property::String, :length => 255
       column :attempts, DataMapper::Property::Integer
       column :date_of_lock, DataMapper::Property::Time
+      column :is_admin, DataMapper::Property::Boolean
     end
   end
 

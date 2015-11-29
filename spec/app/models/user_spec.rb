@@ -49,6 +49,8 @@ describe User do
   describe 'authenticate' do
     before do
       @user = User.new(:email => 'john.doe@someplace.com', :password => 'Passw0rd')
+
+      @admin = User.new(:email => 'admin@admin.com', :password => 'Admin123')
     end
 
     it 'should return the user when email and password match' do
@@ -122,6 +124,18 @@ describe User do
       expect{ User.authenticate(@user.email, password) }.to raise_error(LockedAccountError)
       expect(@user.attempts).to be 3
       expect(@user.date_of_lock).to eq DateTime.new(DateTime.now.year, DateTime.now.month, DateTime.now.day)
+    end
+
+  end
+
+  describe 'Administrator' do
+    before do
+      @admin = User.new(:email => 'admin@admin.com', :password => 'Admin123')
+    end
+
+    it 'should return true why is one administrator' do
+      @admin.set_admin(@admin.email, 'Admin123')
+      expect(@admin.is_admin).to equal true
     end
   end
 

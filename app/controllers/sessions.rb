@@ -16,7 +16,12 @@ JobVacancy::App.controllers :sessions do
       redirect '/login'
     end
     sign_in @user
-    redirect '/'
+    if @user.is_admin
+      flash[:success] = 'User administrator'
+      redirect '/'
+    else
+      redirect '/'
+    end
   end
 
   get :destroy, :map => '/logout' do 

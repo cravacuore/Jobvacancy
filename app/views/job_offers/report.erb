@@ -1,0 +1,20 @@
+<h1>Reports Offers</h1>
+
+  <table class="table table-bordered">
+    <tr>
+      <th>Hiring open</th>
+      <th>Hiring in this site</th>
+      <th>Hiring in other site</th>
+    </tr>
+    <tr>
+      <td>
+        <%= @report.offers_finalized_by('Hiring open') %>
+      </td>
+      <td>
+        <%= @report.offers_finalized_by('Hiring in this site') %>
+      </td>
+      <td>
+        <%= @report.offers_finalized_by('Hiring in other site') %>
+      </td>
+    </tr>
+  </table>

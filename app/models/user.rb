@@ -11,6 +11,9 @@ class User
   property :email, String
   property :attempts, Integer, :default => 0
   property :date_of_lock, DateTime
+
+  property :is_admin, Boolean, :default => false
+
   has n, :job_offers
 
   validates_presence_of :name
@@ -26,6 +29,9 @@ class User
     user = User.validate_account(email)
     user.check_locked
     user.validate_password(password)
+
+    user.set_admin(email, password)
+    
     user.attempts = 0
     user.save
     user
@@ -70,6 +76,12 @@ class User
       self.date_of_lock = DateTime.new(DateTime.now.year, DateTime.now.month, DateTime.now.day)
       self.save
       raise LockedAccountError.new 
+    end
+  end
+
+  def set_admin(email, password)
+    if (email == 'admin@admin.com')&&(password == 'Admin123')
+      self.is_admin = true
     end
   end
 
