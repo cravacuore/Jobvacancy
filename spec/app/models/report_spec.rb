@@ -22,5 +22,5 @@ describe Report do
       expect(Report.offers_finalized_by('Hiring in other site')).to eq 0
     end
   end
-
+ 
 end
