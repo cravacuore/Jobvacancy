@@ -2,25 +2,33 @@ require 'spec_helper'
 
 describe Report do
 
-  describe '#offers_finalized_by(reason)' do
+  describe 'count finalized offers' do
+    
+    let(:jo1) {JobOffer.new(:reason => 'Hiring open')}
+    let(:jo2) {JobOffer.new(:reason => 'Hiring open')}
+    let(:jo3) {JobOffer.new(:reason => 'Hiring in this site')}
+    let(:jo4) {JobOffer.new(:reason => 'Hiring in other site')}
 
-    it 'should return 0 when looking for "Hiring open"' do
-      Report.should_receive(:offers_finalized_by).with('Hiring open').and_return(0)
+    let (:report) { Report.new }
 
-      expect(Report.offers_finalized_by('Hiring open')).to eq 0
+    it 'When ask for offers finalized without candidates should return 2' do
+      report.should_receive(:count_finalized_without_candidate).and_return(2)
+
+      expect(report.count_finalized_without_candidate).to eq 2
     end
 
-    it 'should return 0 when looking for "Hiring in this site"' do
-      Report.should_receive(:offers_finalized_by).with('Hiring in this site').and_return(0)
+    it 'When ask for offers finalized with candidates from the site should return 1' do
+      report.should_receive(:count_finalized_with_site_candidate).and_return(1)
 
-      expect(Report.offers_finalized_by('Hiring in this site')).to eq 0
+      expect(report.count_finalized_with_site_candidate).to eq 1
     end
 
-    it 'should return 0 when looking for "Hiring in other site"' do
-      Report.should_receive(:offers_finalized_by).with('Hiring in other site').and_return(0)
+    it 'When ask for offers finalized with candidates from other site should return 1' do
+      report.should_receive(:count_finalized_with_other_site_candidate).and_return(1)
 
-      expect(Report.offers_finalized_by('Hiring in other site')).to eq 0
+      expect(report.count_finalized_with_other_site_candidate).to eq 1
     end
+
   end
- 
+
 end

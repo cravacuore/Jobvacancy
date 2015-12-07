@@ -8,13 +8,13 @@
     </tr>
     <tr>
       <td>
-        <%= @report.offers_finalized_by('Hiring open') %>
+        <%= @report.count_finalized_without_candidate %>
       </td>
       <td>
-        <%= @report.offers_finalized_by('Hiring in this site') %>
+        <%= @report.count_finalized_with_site_candidate %>
       </td>
       <td>
-        <%= @report.offers_finalized_by('Hiring in other site') %>
+        <%= @report.count_finalized_with_other_site_candidate %>
       </td>
     </tr>
   </table>
