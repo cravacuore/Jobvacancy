@@ -6,8 +6,8 @@ script: "./build_all.sh"
 
 before_script:
 - sh -e /etc/init.d/xvfb start
-script: PADRINO_ENV=test padrino rake
+script: PADRINO_ENV=test bundle exec padrino rake
 bundler_args: --without development
-before_install: 
-  - sudo apt-get update -qq 
-  - sudo apt-get install -qq postgresql-server-dev-9.3 
+before_install:
+  - sudo apt-get update -qq
+  - sudo apt-get install -qq postgresql-server-dev-9.3
