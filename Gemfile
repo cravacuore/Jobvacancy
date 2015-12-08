@@ -50,13 +50,13 @@ group :development, :test do
   gem 'rspec'
   gem 'simplecov', "0.8.0.pre"
   gem 'rack-test', :require => 'rack/test'
-  gem 'rubocop',  :github => 'bbatsov/rubocop'
 end
 
 group :development do
-  gem 'guard'   
+  gem 'guard'
   gem 'guard-rspec'
   gem 'byebug'
+  # gem 'rubocop',  :github => 'bbatsov/rubocop'
 end
 
 # Gian: Have to aggregate this to make the proyect work in my local machine.
